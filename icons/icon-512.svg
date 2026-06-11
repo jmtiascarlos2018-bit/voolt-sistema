@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="url(#grad)" />
+  <!-- Graduation cap icon -->
+  <path d="M256 120L90 195l166 75 166-75z" fill="#ffffff" />
+  <path d="M130 230v70c0 35 55 60 126 60s126-25 126-60v-70l-126 55z" fill="#ffffff" opacity="0.9" />
+  <path d="M390 195v100h-16V195z" fill="#ffffff" opacity="0.8" />
+  <!-- Meta / Traffic Ads golden growth overlay -->
+  <path d="M320 370l30-30 30 30h-60z" fill="#f59e0b" />
+  <rect x="250" y="380" width="130" height="24" rx="6" fill="#f59e0b" opacity="0.9" />
+</svg>

@@ -1,0 +1,1859 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOOLT - Foco no Tráfego Pago</title>
+  
+  <!-- PWA Manifest & Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icons/icon-192.svg">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Elemento de Fundo Brilhante para Estética Premium -->
+  <div class="glow-bg-radial"></div>
+
+  <div class="app-container">
+    
+    <!-- Barra Lateral (Sidebar) com Glassmorphism -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <svg fill="none" viewBox="0 0 24 24" style="color: #f59e0b; width: 24px; height: 24px;">
+          <path stroke="none" fill="currentColor" d="M13 2L3 14h9v8l10-12h-9z"></path>
+        </svg>
+        <div class="logo-info">
+          <h1>VOOLT</h1>
+          <span>Foco no Tráfego Pago</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <!-- Seção: Principal -->
+        <div>
+          <ul class="menu-items">
+            <li>
+              <a class="menu-link active" data-view="dashboard">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                </svg>
+                <span>Dashboard</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+ 
+         <!-- Seção: Alunos -->
+         <div>
+           <h3 class="menu-section-title">Alunos</h3>
+           <ul class="menu-items">
+             <li>
+               <a class="menu-link" data-view="alunos">
+                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                 </svg>
+                 <span>Alunos</span>
+               </a>
+             </li>
+             <li>
+               <a class="menu-link" data-view="cursos">
+                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                 </svg>
+                 <span>Cursos</span>
+               </a>
+             </li>
+             <li>
+               <a class="menu-link" data-view="relatorios">
+                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                 </svg>
+                 <span>Relatórios</span>
+               </a>
+             </li>
+           </ul>
+         </div>
+ 
+         <!-- Seção: Tráfego Pago -->
+         <div>
+           <h3 class="menu-section-title">Empresas (Tráfego Pago)</h3>
+           <ul class="menu-items">
+             <li>
+               <a class="menu-link" data-view="empresas">
+                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                 </svg>
+                 <span>Empresas</span>
+               </a>
+             </li>
+             <li>
+               <a class="menu-link" data-view="planos">
+                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                 </svg>
+                 <span>Planos</span>
+               </a>
+             </li>
+             <li>
+               <a class="menu-link" data-view="relatorios">
+                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                 </svg>
+                 <span>Relatórios</span>
+               </a>
+             </li>
+           </ul>
+         </div>
+
+        <!-- Seção: Financeiro -->
+        <div>
+          <h3 class="menu-section-title">Financeiro</h3>
+          <ul class="menu-items">
+            <li>
+              <a class="menu-link" data-view="relatorios">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>Relatórios Fin.</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <!-- Botão PWA para Instalar no Navegador -->
+        <button id="pwa-install-btn" class="menu-link" style="width: 100%; border: none; background: linear-gradient(135deg, #10b981, #059669); color: white; display: none; margin-bottom: 12px; font-weight: 700; text-align: center; justify-content: center; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">
+          📥 Instalar no PC
+        </button>
+        
+        <a class="menu-link" onclick="if(confirm('Deseja realmente sair?')) window.close();" style="color: #ef4444;">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+          </svg>
+          <span>Sair</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Área de Conteúdo Principal -->
+    <main class="main-wrapper">
+      
+      <!-- Cabeçalho (Header) com Glassmorphism -->
+      <header class="main-header">
+        <div class="header-title">
+          <h2 id="view-title">Dashboard</h2>
+          <p id="view-subtitle">Visão geral do sistema</p>
+        </div>
+        
+        <div class="header-actions">
+          <!-- Botão para Alternar Tema (Claro / Escuro) -->
+          <button id="theme-toggle-btn" class="notification-bell" style="border: none; background: none; margin-right: 8px;">
+            <!-- Ícone do Sol (Tema Claro) -->
+            <svg id="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.364l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
+            </svg>
+            <!-- Ícone da Lua (Tema Escuro) -->
+            <svg id="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+          </button>
+
+          <div class="notification-bell">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+            </svg>
+            <span class="notification-badge"></span>
+          </div>
+
+          <div class="user-profile">
+            <div class="user-avatar">AD</div>
+            <div class="user-info">
+              <span class="name">Administrador</span>
+              <span class="email">admin@email.com</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Container do Conteúdo das Páginas -->
+      <div class="content-container">
+
+        <!-- ================= PÁGINA 1: DASHBOARD ================= -->
+        <section id="dashboard-view" class="view-section active">
+          <div class="stats-grid">
+            <div class="stat-card" onclick="App.navigateTo('alunos');" style="cursor: pointer;">
+              <div class="stat-icon primary">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+              </div>
+              <div class="stat-details">
+                <span class="stat-value" id="dash-counter-alunos">0</span>
+                <span class="stat-title">Alunos Matriculados</span>
+                <span class="stat-footer">Ativos</span>
+              </div>
+            </div>
+
+            <div class="stat-card" onclick="App.navigateTo('relatorios');" style="cursor: pointer;">
+              <div class="stat-icon success">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <div class="stat-details">
+                <span class="stat-value" id="dash-counter-financeiro">R$ 0,00</span>
+                <span class="stat-title">Recebido (mês)</span>
+                <span class="stat-footer" style="color: var(--primary);">Financeiro</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon warning">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                </svg>
+              </div>
+              <div class="stat-details">
+                <span class="stat-value" id="dash-counter-parcelas">0</span>
+                <span class="stat-title">Parcelas em aberto</span>
+                <span class="stat-footer" style="color: var(--warning);">Alunos</span>
+              </div>
+            </div>
+
+            <div class="stat-card" onclick="App.navigateTo('empresas');" style="cursor: pointer;">
+              <div class="stat-icon danger" style="background-color: #f5f3ff; color: #8b5cf6;">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+              </div>
+              <div class="stat-details">
+                <span class="stat-value" id="dash-counter-empresas">0</span>
+                <span class="stat-title">Empresas ativas</span>
+                <span class="stat-footer" style="color: #8b5cf6;">Tráfego pago</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>Alunos recentes</h3>
+                <a class="card-link" onclick="App.navigateTo('alunos');">Ver todos</a>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table-custom">
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Curso</th>
+                        <th>Situação</th>
+                        <th>Matrícula</th>
+                      </tr>
+                    </thead>
+                    <tbody id="recent-students-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Recebimentos (últimos 30 dias)</h3>
+                <a class="card-link" onclick="App.navigateTo('relatorios');">Ver relatório</a>
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <div class="svg-donut-wrapper">
+                    <svg class="svg-donut" viewBox="0 0 80 80">
+                      <circle class="donut-ring" cx="40" cy="40" r="35"></circle>
+                      <circle id="seg-pix" class="donut-segment" cx="40" cy="40" r="35" stroke="#10b981"></circle>
+                      <circle id="seg-cartao" class="donut-segment" cx="40" cy="40" r="35" stroke="#2563eb"></circle>
+                      <circle id="seg-boleto" class="donut-segment" cx="40" cy="40" r="35" stroke="#f59e0b"></circle>
+                      <circle id="seg-debito" class="donut-segment" cx="40" cy="40" r="35" stroke="#8b5cf6"></circle>
+                    </svg>
+                    <div class="donut-center-text">
+                      <div class="donut-center-value" id="donut-total-value">R$ 0</div>
+                      <div class="donut-center-label">Total</div>
+                    </div>
+                  </div>
+
+                  <div class="chart-legend">
+                    <div class="legend-item">
+                      <div class="legend-info">
+                        <div class="legend-color" style="background-color: #10b981;"></div>
+                        <span class="legend-label">Pix</span>
+                      </div>
+                      <span class="legend-value" id="legend-val-pix">R$ 0 <span>(0%)</span></span>
+                    </div>
+                    <div class="legend-item">
+                      <div class="legend-info">
+                        <div class="legend-color" style="background-color: #2563eb;"></div>
+                        <span class="legend-label">Cartão de Crédito</span>
+                      </div>
+                      <span class="legend-value" id="legend-val-cartao">R$ 0 <span>(0%)</span></span>
+                    </div>
+                    <div class="legend-item">
+                      <div class="legend-info">
+                        <div class="legend-color" style="background-color: #f59e0b;"></div>
+                        <span class="legend-label">Boleto / Carnê</span>
+                      </div>
+                      <span class="legend-value" id="legend-val-boleto">R$ 0 <span>(0%)</span></span>
+                    </div>
+                    <div class="legend-item">
+                      <div class="legend-info">
+                        <div class="legend-color" style="background-color: #8b5cf6;"></div>
+                        <span class="legend-label">Cartão de Débito</span>
+                      </div>
+                      <span class="legend-value" id="legend-val-debito">R$ 0 <span>(0%)</span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>Financeiro - Parcelas em aberto</h3>
+                <a class="card-link" onclick="alert('Tela consolidada de cobranças em desenvolvimento.');">Ver todas</a>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table-custom">
+                    <thead>
+                      <tr>
+                        <th>Aluno</th>
+                        <th>Curso</th>
+                        <th>Parcela</th>
+                        <th>Vencimento</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="open-installments-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Empresas ativas (Tráfego Pago)</h3>
+                <a class="card-link" onclick="App.navigateTo('empresas');">Ver todas</a>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table-custom">
+                    <thead>
+                      <tr>
+                        <th>Empresa</th>
+                        <th>CNPJ</th>
+                        <th>Plano</th>
+                        <th>Período</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="active-companies-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ================= PÁGINA 2: LISTAGEM DE ALUNOS ================= -->
+        <section id="alunos-view" class="view-section">
+          <div class="list-actions">
+            <div class="search-input-wrapper">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <input type="text" id="search-alunos" class="search-input-custom" placeholder="Buscar aluno por nome, curso ou CPF...">
+            </div>
+            
+            <button class="btn-erp primary" onclick="openStudentModal();" style="height: 38px;">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+              Novo Aluno
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="card-body" style="padding: 0;">
+              <div class="table-responsive">
+                <table class="table-custom">
+                  <thead>
+                    <tr>
+                      <th>Nome Completo</th>
+                      <th>CPF</th>
+                      <th>Curso Matriculado</th>
+                      <th>WhatsApp</th>
+                      <th>Total Pago</th>
+                      <th>Total Pendente</th>
+                      <th>Situação</th>
+                    </tr>
+                  </thead>
+                  <tbody id="alunos-list-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ================= PÁGINA 3: CURSOS (NOVA TELA REAL) ================= -->
+        <section id="cursos-view" class="view-section">
+          <div class="list-actions">
+            <h3 style="font-size: 18px; font-weight: 700; color: var(--text-main);">Gerenciamento de Cursos</h3>
+            <button class="btn-erp primary" onclick="document.getElementById('curso-creator-card').style.display = 'block'; document.getElementById('curso-creator-card').scrollIntoView({behavior: 'smooth'});" style="height: 38px;">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+              Novo Curso
+            </button>
+          </div>
+
+          <!-- Cards Rápidos de Cursos -->
+          <div class="stats-grid" id="cursos-stats-grid">
+            <!-- Dinâmico pelo JS -->
+          </div>
+
+          <!-- Formulário Criador de Cursos -->
+          <div class="card" id="curso-creator-card" style="display: none; border-left: 4px solid var(--primary);">
+            <div class="card-header">
+              <h3>⚡ Criar Novo Curso</h3>
+              <a class="card-link" onclick="document.getElementById('curso-creator-card').style.display='none';">Fechar</a>
+            </div>
+            <div class="card-body">
+              <form id="curso-creator-form" class="form-grid" onsubmit="event.preventDefault(); window.saveCursoForm();">
+                <div class="form-group-erp col-4">
+                  <label>Nome do Curso:</label>
+                  <input type="text" id="course-name" class="form-input-erp" placeholder="EX: ANÁLISE DE DADOS" required>
+                </div>
+                <div class="form-group-erp col-2">
+                  <label>Carga Horária (horas):</label>
+                  <input type="number" id="course-hours" class="form-input-erp" placeholder="60" required>
+                </div>
+                <div class="form-group-erp col-3">
+                  <label>Professor / Instrutor:</label>
+                  <input type="text" id="course-prof" class="form-input-erp" placeholder="EX: CARLOS HENRIQUE" required>
+                </div>
+                <div class="form-group-erp col-3">
+                  <label>Descrição Curta:</label>
+                  <input type="text" id="course-desc" class="form-input-erp" placeholder="EX: Curso de SQL e dashboards" required>
+                </div>
+                <div class="col-12" style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px;">
+                  <button type="submit" class="btn-erp primary">Adicionar Curso</button>
+                  <button type="button" class="btn-erp" onclick="document.getElementById('curso-creator-card').style.display='none';">Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="dashboard-grid" style="grid-template-columns: 1fr;">
+            <div class="card">
+              <div class="card-header">
+                <h3>Cursos Ativos & Docência</h3>
+              </div>
+              <div class="card-body" style="padding: 0;">
+                <div class="table-responsive">
+                  <table class="table-custom">
+                    <thead>
+                      <tr>
+                        <th>Nome do Curso</th>
+                        <th>Carga Horária</th>
+                        <th>Professor Resp.</th>
+                        <th>Alunos Ativos</th>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cursos-list-body">
+                      <!-- Dinâmico -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ================= PÁGINA 4: LISTAGEM DE EMPRESAS ================= -->
+        <section id="empresas-view" class="view-section">
+          <div class="list-actions">
+            <div class="search-input-wrapper">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <input type="text" id="search-empresas" class="search-input-custom" placeholder="Buscar empresa por fantasia, CNPJ ou plano...">
+            </div>
+
+            <button class="btn-erp primary" onclick="openCompanyModal();" style="height: 38px;">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+              Nova Empresa
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="card-body" style="padding: 0;">
+              <div class="table-responsive">
+                <table class="table-custom">
+                  <thead>
+                    <tr>
+                      <th>Nome Fantasia</th>
+                      <th>CNPJ</th>
+                      <th>Plano Contratado</th>
+                      <th>Duração Contrato</th>
+                      <th>Faturamento Pago</th>
+                      <th>Faturamento Aberto</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="empresas-list-body"></tbody>
+                </table>
+                 <!-- ================= PÁGINA 5: PLANOS DE TRÁFEGO ================= -->
+        <section id="planos-view" class="view-section">
+          <div class="list-actions">
+            <h3 style="font-size: 18px; font-weight: 700; color: var(--text-main);">Planos de Tráfego Disponíveis</h3>
+          </div>
+
+          <!-- Cards de Pré-visualização dos Planos (atualizados dinamicamente) -->
+          <div class="stats-grid" id="planos-cards-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <!-- Renderizado pelo JS -->
+          </div>
+
+          <!-- ===== EDITORES DOS PLANOS ===== -->
+          <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
+
+            <!-- PLANO 1: PROFISSIONAL -->
+            <div class="card" style="border-left: 4px solid var(--primary);">
+              <div class="card-header" style="cursor:pointer;" onclick="togglePlanoEditor('editor-plano-0')">
+                <h3 style="color: var(--primary);">✏️ Editar: Plano Profissional</h3>
+                <span id="toggle-icon-0" style="font-size:18px; color: var(--text-muted);">▼</span>
+              </div>
+              <div id="editor-plano-0" class="card-body" style="display:none;">
+                <div class="form-grid">
+                  <div class="form-group-erp col-4">
+                    <label>Nome do Plano:</label>
+                    <input type="text" class="form-input-erp" id="p0-nome" value="PLANO PROFISSIONAL" oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-4">
+                    <label>Label / Badge:</label>
+                    <input type="text" class="form-input-erp" id="p0-badge" value="Recomendado" oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-4">
+                    <label>Valor Mensal (R$):</label>
+                    <input type="number" class="form-input-erp" id="p0-valor" value="3500.00" oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-12">
+                    <label>Descrição Curta:</label>
+                    <input type="text" class="form-input-erp" id="p0-desc" value="Ideal para negócios locais em expansão rápida." oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-12">
+                    <label style="margin-bottom: 6px; display:block;">Características (uma por linha):</label>
+                    <textarea class="form-input-erp" id="p0-features" rows="5" style="height: auto; resize: vertical;" oninput="renderPlanosCards()">Gestão Meta Ads & Google Ads
+Criação de Criativos de Vídeo
+Limite: até 5 Usuários
+Relatórios quinzenais no WhatsApp</textarea>
+                  </div>
+                </div>
+                <div style="display:flex; justify-content:flex-end; margin-top:12px; gap:8px;">
+                  <button class="btn-erp" onclick="resetPlano(0)">Restaurar padrão</button>
+                  <button class="btn-erp primary" onclick="savePlanos()">💾 Salvar Plano</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- PLANO 2: AVANÇADO -->
+            <div class="card" style="border-left: 4px solid #8b5cf6;">
+              <div class="card-header" style="cursor:pointer;" onclick="togglePlanoEditor('editor-plano-1')">
+                <h3 style="color: #8b5cf6;">✏️ Editar: Plano Avançado</h3>
+                <span id="toggle-icon-1" style="font-size:18px; color: var(--text-muted);">▼</span>
+              </div>
+              <div id="editor-plano-1" class="card-body" style="display:none;">
+                <div class="form-grid">
+                  <div class="form-group-erp col-4">
+                    <label>Nome do Plano:</label>
+                    <input type="text" class="form-input-erp" id="p1-nome" value="PLANO AVANÇADO" oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-4">
+                    <label>Label / Badge:</label>
+                    <input type="text" class="form-input-erp" id="p1-badge" value="Avançado" oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-4">
+                    <label>Valor Mensal (R$):</label>
+                    <input type="number" class="form-input-erp" id="p1-valor" value="4800.00" oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-12">
+                    <label>Descrição Curta:</label>
+                    <input type="text" class="form-input-erp" id="p1-desc" value="Foco total em escala e-commerce e CRM." oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-12">
+                    <label style="margin-bottom: 6px; display:block;">Características (uma por linha):</label>
+                    <textarea class="form-input-erp" id="p1-features" rows="5" style="height: auto; resize: vertical;" oninput="renderPlanosCards()">Estrutura Multicanal Meta/Google/TikTok
+Funis de Remarketing Avançados
+Limite: até 8 Usuários
+Dashboards integrados em tempo real</textarea>
+                  </div>
+                </div>
+                <div style="display:flex; justify-content:flex-end; margin-top:12px; gap:8px;">
+                  <button class="btn-erp" onclick="resetPlano(1)">Restaurar padrão</button>
+                  <button class="btn-erp primary" onclick="savePlanos()">💾 Salvar Plano</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- PLANO 3: EMPRESARIAL PREMIUM -->
+            <div class="card" style="border-left: 4px solid var(--success);">
+              <div class="card-header" style="cursor:pointer;" onclick="togglePlanoEditor('editor-plano-2')">
+                <h3 style="color: var(--success);">✏️ Editar: Empresarial Premium</h3>
+                <span id="toggle-icon-2" style="font-size:18px; color: var(--text-muted);">▼</span>
+              </div>
+              <div id="editor-plano-2" class="card-body" style="display:none;">
+                <div class="form-grid">
+                  <div class="form-group-erp col-4">
+                    <label>Nome do Plano:</label>
+                    <input type="text" class="form-input-erp" id="p2-nome" value="EMPRESARIAL PREMIUM" oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-4">
+                    <label>Label / Badge:</label>
+                    <input type="text" class="form-input-erp" id="p2-badge" value="ERP Premium" oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-4">
+                    <label>Valor Mensal (R$):</label>
+                    <input type="number" class="form-input-erp" id="p2-valor" value="499.90" oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-12">
+                    <label>Descrição Curta:</label>
+                    <input type="text" class="form-input-erp" id="p2-desc" value="Plano de software ERP e suporte operacional." oninput="renderPlanosCards()">
+                  </div>
+                  <div class="form-group-erp col-12">
+                    <label style="margin-bottom: 6px; display:block;">Características (uma por linha):</label>
+                    <textarea class="form-input-erp" id="p2-features" rows="5" style="height: auto; resize: vertical;" oninput="renderPlanosCards()">Acesso Completo ao ERP VOOLT
+Integração com Meta Ads API
+Limite: até 10 Usuários
+Suporte prioritário 24/7</textarea>
+                  </div>
+                </div>
+                <div style="display:flex; justify-content:flex-end; margin-top:12px; gap:8px;">
+                  <button class="btn-erp" onclick="resetPlano(2)">Restaurar padrão</button>
+                  <button class="btn-erp primary" onclick="savePlanos()">💾 Salvar Plano</button>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- fim editores -->
+
+        </section>
+
+        <script>
+        // ======== GERENCIADOR DE PLANOS ========
+        const PLANOS_DEFAULTS = [
+          {
+            nome: 'PLANO PROFISSIONAL',
+            badge: 'Recomendado',
+            valor: 3500.00,
+            desc: 'Ideal para negócios locais em expansão rápida.',
+            features: ['Gestão Meta Ads & Google Ads','Criação de Criativos de Vídeo','Limite: até 5 Usuários','Relatórios quinzenais no WhatsApp'],
+            cor: 'var(--primary)',
+            badgeBg: '',
+            badgeColor: ''
+          },
+          {
+            nome: 'PLANO AVANÇADO',
+            badge: 'Avançado',
+            valor: 4800.00,
+            desc: 'Foco total em escala e-commerce e CRM.',
+            features: ['Estrutura Multicanal Meta/Google/TikTok','Funis de Remarketing Avançados','Limite: até 8 Usuários','Dashboards integrados em tempo real'],
+            cor: '#8b5cf6',
+            badgeBg: '#f5f3ff',
+            badgeColor: '#8b5cf6'
+          },
+          {
+            nome: 'EMPRESARIAL PREMIUM',
+            badge: 'ERP Premium',
+            valor: 499.90,
+            desc: 'Plano de software ERP e suporte operacional.',
+            features: ['Acesso Completo ao ERP VOOLT','Integração com Meta Ads API','Limite: até 10 Usuários','Suporte prioritário 24/7'],
+            cor: 'var(--success)',
+            badgeBg: 'var(--success-light)',
+            badgeColor: 'var(--success)'
+          }
+        ];
+
+        function getPlanoData(i) {
+          return {
+            nome:     document.getElementById('p'+i+'-nome')?.value    || PLANOS_DEFAULTS[i].nome,
+            badge:    document.getElementById('p'+i+'-badge')?.value   || PLANOS_DEFAULTS[i].badge,
+            valor:    parseFloat(document.getElementById('p'+i+'-valor')?.value) || PLANOS_DEFAULTS[i].valor,
+            desc:     document.getElementById('p'+i+'-desc')?.value    || PLANOS_DEFAULTS[i].desc,
+            features: (document.getElementById('p'+i+'-features')?.value || '').split('\n').map(f => f.trim()).filter(f => f.length > 0),
+            cor:      PLANOS_DEFAULTS[i].cor,
+            badgeBg:  PLANOS_DEFAULTS[i].badgeBg,
+            badgeColor: PLANOS_DEFAULTS[i].badgeColor
+          };
+        }
+
+        function renderPlanosCards() {
+          const grid = document.getElementById('planos-cards-grid');
+          if (!grid) return;
+          grid.innerHTML = '';
+          for (let i = 0; i < 3; i++) {
+            const p = getPlanoData(i);
+            const badgeStyle = p.badgeBg ? `background-color:${p.badgeBg}; color:${p.badgeColor};` : '';
+            const featuresHtml = p.features.map(f =>
+              `<li>✔️ ${f.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</li>`
+            ).join('');
+            const valorFormatado = p.valor.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+            grid.innerHTML += `
+              <div class="stat-card" style="flex-direction:column;align-items:flex-start;gap:12px;border-top:4px solid ${p.cor};">
+                <span class="badge active" style="align-self:flex-end;${badgeStyle}">${p.badge}</span>
+                <h3 style="font-size:16px;font-weight:700;color:${p.cor};">${p.nome}</h3>
+                <p style="font-size:11px;color:var(--text-muted);">${p.desc}</p>
+                <div style="font-size:26px;font-weight:700;margin:8px 0;color:var(--text-main);">R$ ${valorFormatado} <span style="font-size:12px;font-weight:500;color:var(--text-muted);">/ mês</span></div>
+                <ul style="font-size:11px;color:var(--text-main);list-style:none;display:flex;flex-direction:column;gap:6px;width:100%;">${featuresHtml}</ul>
+              </div>`;
+          }
+        }
+
+        function togglePlanoEditor(id) {
+          const el = document.getElementById(id);
+          const idx = id.replace('editor-plano-','');
+          const icon = document.getElementById('toggle-icon-'+idx);
+          if (!el) return;
+          const isOpen = el.style.display !== 'none';
+          el.style.display = isOpen ? 'none' : 'block';
+          if (icon) icon.textContent = isOpen ? '▼' : '▲';
+        }
+
+        function savePlanos() {
+          const data = [0,1,2].map(i => {
+            const p = getPlanoData(i);
+            return { nome: p.nome, badge: p.badge, valor: p.valor, desc: p.desc, features: p.features };
+          });
+          try { localStorage.setItem('planosConfig', JSON.stringify(data)); } catch(e){}
+          renderPlanosCards();
+
+          // Notificação visual
+          const btn = event.target;
+          const orig = btn.textContent;
+          btn.textContent = '✅ Salvo!';
+          btn.disabled = true;
+          setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
+        }
+
+        function resetPlano(i) {
+          const d = PLANOS_DEFAULTS[i];
+          document.getElementById('p'+i+'-nome').value     = d.nome;
+          document.getElementById('p'+i+'-badge').value    = d.badge;
+          document.getElementById('p'+i+'-valor').value    = d.valor;
+          document.getElementById('p'+i+'-desc').value     = d.desc;
+          document.getElementById('p'+i+'-features').value = d.features.join('\n');
+          renderPlanosCards();
+        }
+
+        function loadSavedPlanos() {
+          try {
+            const saved = JSON.parse(localStorage.getItem('planosConfig') || 'null');
+            if (!saved) return;
+            saved.forEach((p, i) => {
+              const nome     = document.getElementById('p'+i+'-nome');
+              const badge    = document.getElementById('p'+i+'-badge');
+              const valor    = document.getElementById('p'+i+'-valor');
+              const desc     = document.getElementById('p'+i+'-desc');
+              const features = document.getElementById('p'+i+'-features');
+              if (nome)     nome.value     = p.nome;
+              if (badge)    badge.value    = p.badge;
+              if (valor)    valor.value    = p.valor;
+              if (desc)     desc.value     = p.desc;
+              if (features) features.value = (p.features || []).join('\n');
+            });
+          } catch(e) {}
+        }
+
+        // Inicializar ao carregar
+        document.addEventListener('DOMContentLoaded', function() {
+          loadSavedPlanos();
+          renderPlanosCards();
+        });
+        // Também renderizar quando a aba planos for ativada
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('[data-view="planos"]')) {
+            setTimeout(renderPlanosCards, 50);
+          }
+        });
+        </script>
+
+
+        <!-- ================= PÁGINA 6: RELATÓRIOS FINANCEIROS (NOVA TELA REAL) ================= -->
+        <section id="relatorios-view" class="view-section">
+          <div class="list-actions">
+            <h3 style="font-size: 18px; font-weight: 700; color: var(--text-main);">Análise e Fluxo de Caixa Consolidado</h3>
+          </div>
+
+          <!-- Totais Financeiros no topo -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon success">💰</div>
+              <div class="stat-details">
+                <span class="stat-value" id="fin-realized-income">R$ 0,00</span>
+                <span class="stat-title">Faturamento Realizado (Pago)</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon warning">⏳</div>
+              <div class="stat-details">
+                <span class="stat-value" id="fin-pending-income">R$ 0,00</span>
+                <span class="stat-title">Faturamento Previsto (Aberto)</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon danger">🛑</div>
+              <div class="stat-details">
+                <span class="stat-value" id="fin-overdue-income">R$ 330,00</span>
+                <span class="stat-title">Inadimplência (Atrasados)</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon primary">📊</div>
+              <div class="stat-details">
+                <span class="stat-value" id="fin-total-income">R$ 0,00</span>
+                <span class="stat-title">Total Geral Contratado</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Relatório Financeiro com Gráfico de Linhas/Barras SVG Real -->
+          <div class="dashboard-grid">
+            
+            <div class="card">
+              <div class="card-header">
+                <h3>📊 Histórico e Projeção Financeira Anual</h3>
+              </div>
+              <div class="card-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 240px;">
+                <svg width="100%" height="200" viewBox="0 0 500 200" style="background-color: #f8fafc; border-radius: 6px; padding: 12px;">
+                  <!-- Grid horizontal -->
+                  <line x1="40" y1="30" x2="480" y2="30" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4"/>
+                  <line x1="40" y1="80" x2="480" y2="80" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4"/>
+                  <line x1="40" y1="130" x2="480" y2="130" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4"/>
+                  <line x1="40" y1="170" x2="480" y2="170" stroke="#cbd5e1" stroke-width="1.5"/>
+                  
+                  <!-- Barras representando faturamentos dos meses -->
+                  <!-- Jan -->
+                  <rect x="60" y="100" width="22" height="70" fill="url(#blue-grad)" rx="3"/>
+                  <text x="71" y="185" font-size="9" font-weight="600" fill="#64748b" text-anchor="middle">Jan</text>
+                  <!-- Fev -->
+                  <rect x="110" y="80" width="22" height="90" fill="url(#blue-grad)" rx="3"/>
+                  <text x="121" y="185" font-size="9" font-weight="600" fill="#64748b" text-anchor="middle">Fev</text>
+                  <!-- Mar -->
+                  <rect x="160" y="70" width="22" height="100" fill="url(#blue-grad)" rx="3"/>
+                  <text x="171" y="185" font-size="9" font-weight="600" fill="#64748b" text-anchor="middle">Mar</text>
+                  <!-- Abr -->
+                  <rect x="210" y="60" width="22" height="110" fill="url(#blue-grad)" rx="3"/>
+                  <text x="221" y="185" font-size="9" font-weight="600" fill="#64748b" text-anchor="middle">Abr</text>
+                  <!-- Mai (Mês Atual - Pico) -->
+                  <rect x="260" y="35" width="22" height="135" fill="url(#green-grad)" rx="3"/>
+                  <text x="271" y="185" font-size="9" font-weight="600" fill="#047857" text-anchor="middle">Mai</text>
+                  <!-- Jun (Previsão) -->
+                  <rect x="310" y="55" width="22" height="115" fill="url(#blue-grad)" rx="3" opacity="0.7"/>
+                  <text x="321" y="185" font-size="9" font-weight="600" fill="#64748b" text-anchor="middle">Jun</text>
+                  <!-- Jul -->
+                  <rect x="360" y="75" width="22" height="95" fill="url(#blue-grad)" rx="3" opacity="0.7"/>
+                  <text x="371" y="185" font-size="9" font-weight="600" fill="#64748b" text-anchor="middle">Jul</text>
+                  <!-- Ago -->
+                  <rect x="410" y="65" width="22" height="105" fill="url(#blue-grad)" rx="3" opacity="0.7"/>
+                  <text x="421" y="185" font-size="9" font-weight="600" fill="#64748b" text-anchor="middle">Ago</text>
+
+                  <!-- Definição dos Degradês nos gráficos -->
+                  <defs>
+                    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:0.8" />
+                    </linearGradient>
+                    <linearGradient id="green-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#059669;stop-opacity:0.8" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>📜 Demonstrativo de Recebimentos Consolidados</h3>
+              </div>
+              <div class="card-body" style="padding: 0;">
+                <div class="table-responsive">
+                  <table class="table-custom">
+                    <thead>
+                      <tr>
+                        <th>Origem</th>
+                        <th>Descrição do Lançamento</th>
+                        <th>Valor Total</th>
+                        <th>Forma</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="fin-statement-body">
+                      <!-- Dinâmico -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+<!-- ==================== MODAL ERP: CADASTRO DE ALUNO ======================= -->
+  <!-- ========================================================================= -->
+  <section id="student-form-view" class="view-section">
+    <div class="modal-window">
+      
+      <!-- Cabeçalho Janela ERP -->
+      <div class="modal-header-erp">
+        <div class="window-title">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 18px; height: 18px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+          </svg>
+          Cadastro de Aluno e Matrícula
+        </div>
+        <div class="window-controls">
+          <button class="window-btn close-btn" onclick="App.navigateTo('alunos');">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Corpo do Modal -->
+      <form class="modal-body-erp" id="student-form" onsubmit="event.preventDefault();">
+        
+        <!-- 1. DADOS DO ALUNO -->
+        <fieldset class="form-section-erp">
+          <legend class="section-title-erp">👤 1. Dados do Aluno</legend>
+          <div class="form-grid">
+            <div class="form-group-erp col-4">
+              <label>Nome Completo:</label>
+              <input type="text" name="stud-nome" class="form-input-erp" required>
+            </div>
+            <div class="form-group-erp col-4">
+              <label>E-mail:</label>
+              <input type="email" name="stud-email" class="form-input-erp">
+            </div>
+            
+            <!-- Endereço Coluna Direita -->
+            <div class="form-group-erp col-4" style="grid-row: span 4;">
+              <label style="color: #1e3a8a; border-bottom: 1px solid var(--border-color); padding-bottom: 2px; margin-bottom: 4px;">Endereço</label>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div class="form-group-erp">
+                  <label>CEP:</label>
+                  <div class="cep-group">
+                    <input type="text" name="stud-cep" id="stud-cep" class="form-input-erp" placeholder="45000-000">
+                    <button type="button" class="cep-btn-erp" onclick="buscarCEPAluno();">Buscar CEP</button>
+                  </div>
+                </div>
+                <div class="form-group-erp">
+                  <label>Endereço:</label>
+                  <input type="text" name="stud-endereco" id="stud-endereco" class="form-input-erp">
+                </div>
+                <div style="display: grid; grid-template-columns: 2fr 3fr; gap: 4px;">
+                  <div class="form-group-erp">
+                    <label>Número:</label>
+                    <input type="text" name="stud-numero" id="stud-numero" class="form-input-erp">
+                  </div>
+                  <div class="form-group-erp">
+                    <label>Complem.:</label>
+                    <input type="text" name="stud-complemento" class="form-input-erp">
+                  </div>
+                </div>
+                <div class="form-group-erp">
+                  <label>Bairro:</label>
+                  <input type="text" name="stud-bairro" id="stud-bairro" class="form-input-erp">
+                </div>
+                <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 4px;">
+                  <div class="form-group-erp">
+                    <label>Cidade:</label>
+                    <input type="text" name="stud-cidade" id="stud-cidade" class="form-input-erp">
+                  </div>
+                  <div class="form-group-erp">
+                    <label>Estado:</label>
+                    <input type="text" name="stud-estado" id="stud-estado" class="form-input-erp" maxlength="2">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group-erp col-2">
+              <label>CPF:</label>
+              <input type="text" name="stud-cpf" id="stud-cpf" class="form-input-erp" placeholder="000.000.000-00" required>
+            </div>
+            <div class="form-group-erp col-2">
+              <label>Tel. Celular (WhatsApp):</label>
+              <input type="text" name="stud-whatsapp" id="stud-whatsapp" class="form-input-erp" placeholder="(00) 00000-0000">
+            </div>
+            <div class="form-group-erp col-2">
+              <label>RG:</label>
+              <input type="text" name="stud-rg" class="form-input-erp">
+            </div>
+            <div class="form-group-erp col-2">
+              <label>Tel. Residencial:</label>
+              <input type="text" name="stud-telefone" class="form-input-erp">
+            </div>
+            <div class="form-group-erp col-2">
+              <label>Data de Nasc.:</label>
+              <input type="date" name="stud-nasc" class="form-input-erp">
+            </div>
+            <div class="form-group-erp col-2">
+              <label>Estado Civil:</label>
+              <select name="stud-civil" class="form-input-erp">
+                <option value="Solteiro">Solteiro</option>
+                <option value="Casado">Casado</option>
+                <option value="Divorciado">Divorciado</option>
+                <option value="Viúvo">Viúvo</option>
+              </select>
+            </div>
+            <div class="form-group-erp col-2">
+              <label>Sexo:</label>
+              <div class="form-row-align">
+                <div class="radio-group-erp">
+                  <label><input type="radio" name="stud-sexo" value="Masculino" checked> Masc.</label>
+                  <label><input type="radio" name="stud-sexo" value="Feminino"> Fem.</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group-erp col-4">
+              <label>Responsável (se menor de idade):</label>
+              <input type="text" name="stud-responsavel" class="form-input-erp">
+            </div>
+            <div class="form-group-erp col-2">
+              <label>Parentesco:</label>
+              <select name="stud-parentesco" class="form-input-erp">
+                <option value="">- Selecione -</option>
+                <option value="Mãe">Mãe</option>
+                <option value="Pai">Pai</option>
+                <option value="Tio(a)">Tio(a)</option>
+                <option value="Avô(ó)">Avô(ó)</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 2. DADOS DO CURSO -->
+        <fieldset class="form-section-erp">
+          <legend class="section-title-erp">📚 2. Dados do Curso</legend>
+          <div class="form-grid">
+            <div class="form-group-erp col-3">
+              <label>Curso:</label>
+              <select name="stud-curso" id="stud-curso-select" class="form-input-erp">
+                <option value="INFORMÁTICA BÁSICA">INFORMÁTICA BÁSICA</option>
+                <option value="Social Media">SOCIAL MEDIA & MARKETING</option>
+                <option value="Design Gráfico">DESIGN GRÁFICO PROFISSIONAL</option>
+              </select>
+            </div>
+            <div class="form-group-erp col-3">
+              <label>Turma:</label>
+              <select name="stud-turma" class="form-input-erp">
+                <option value="TURMA MANHÃ - 08:00">TURMA MANHÃ - 08:00</option>
+                <option value="TURMA TARDE - 14:00">TURMA TARDE - 14:00</option>
+                <option value="TURMA NOITE - 19:00">TURMA NOITE - 19:00</option>
+              </select>
+            </div>
+            <div class="form-group-erp col-3">
+              <label>Data de Início:</label>
+              <input type="date" name="stud-inicio" class="form-input-erp" onchange="triggerStudentCalculation();">
+            </div>
+            <div class="form-group-erp col-3">
+              <label>Data Término Prevista:</label>
+              <input type="date" name="stud-termino" class="form-input-erp">
+            </div>
+            
+            <div class="form-group-erp col-4">
+              <label>Dias da Semana:</label>
+              <div class="form-row-align" style="height: auto;">
+                <div class="weekdays-group-erp">
+                  <label class="weekday-checkbox-erp"><input type="checkbox" value="Seg" checked> Seg</label>
+                  <label class="weekday-checkbox-erp"><input type="checkbox" value="Ter" checked> Ter</label>
+                  <label class="weekday-checkbox-erp"><input type="checkbox" value="Qua" checked> Qua</label>
+                  <label class="weekday-checkbox-erp"><input type="checkbox" value="Qui" checked> Qui</label>
+                  <label class="weekday-checkbox-erp"><input type="checkbox" value="Sex" checked> Sex</label>
+                  <label class="weekday-checkbox-erp"><input type="checkbox" value="Sáb"> Sáb</label>
+                  <label class="weekday-checkbox-erp"><input type="checkbox" value="Dom"> Dom</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group-erp col-2">
+              <label>Horário das Aulas:</label>
+              <div style="display: flex; align-items: center; gap: 4px; height: 28px;">
+                <input type="text" name="stud-inicio-aula" class="form-input-erp" placeholder="08:00" style="text-align: center;">
+                <span style="font-size: 10px; font-weight: 700;">às</span>
+                <input type="text" name="stud-fim-aula" class="form-input-erp" placeholder="10:00" style="text-align: center;">
+              </div>
+            </div>
+            <div class="form-group-erp col-2">
+              <label>Professor / Instrutor:</label>
+              <select name="stud-professor" id="stud-professor-select" class="form-input-erp">
+                <option value="João Silva">João Silva</option>
+                <option value="Maria Souza">Maria Souza</option>
+                <option value="Pedro Santos">Pedro Santos</option>
+              </select>
+            </div>
+            <div class="form-group-erp col-2">
+              <label>Modalidade:</label>
+              <select name="stud-modalidade" class="form-input-erp">
+                <option value="Presencial">Presencial</option>
+                <option value="Online">Online</option>
+              </select>
+            </div>
+            <div class="form-group-erp col-1">
+              <label>Carga Horária:</label>
+              <input type="text" name="stud-carga" class="form-input-erp" placeholder="80" style="text-align: center;">
+            </div>
+            <div class="form-group-erp col-1">
+              <label>Status:</label>
+              <select name="stud-status" class="form-input-erp">
+                <option value="Ativo">Ativo</option>
+                <option value="Pendente">Pendente</option>
+                <option value="Cancelado">Cancelado</option>
+              </select>
+            </div>
+
+            <div class="form-group-erp col-12">
+              <label>Observações do Curso:</label>
+              <textarea name="stud-observacoes" class="form-input-erp" placeholder="Observações gerais sobre a matrícula do aluno..."></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 3. CONTROLE FINANCEIRO -->
+        <fieldset class="form-section-erp">
+          <legend class="section-title-erp">💵 3. Controle Financeiro</legend>
+          <div class="finance-grid-erp">
+            <div>
+              <div class="financial-input-group">
+                <div class="form-group-erp">
+                  <label>Valor Total do Curso:</label>
+                  <input type="text" name="stud-val-total" id="stud-val-total" class="form-input-erp" value="500.00" oninput="triggerStudentCalculation();" style="font-weight: 700; color: #1e3a8a;">
+                </div>
+                <div class="form-group-erp">
+                  <label>Desconto (% ou R$):</label>
+                  <input type="text" name="stud-desconto" id="stud-desconto" class="form-input-erp" value="0.00" oninput="triggerStudentCalculation();">
+                </div>
+                <div class="form-group-erp">
+                  <label>Valor com Desconto:</label>
+                  <div class="currency-viewer-erp" id="stud-val-desc-view">R$ 500,00</div>
+                </div>
+                <div class="form-group-erp">
+                  <label>Entrada (R$):</label>
+                  <input type="text" name="stud-entrada" id="stud-entrada" class="form-input-erp" value="100.00" oninput="triggerStudentCalculation();">
+                </div>
+                <div class="form-group-erp">
+                  <label>Valor a Parcelar:</label>
+                  <div class="currency-viewer-erp" id="stud-val-parcelar-view" style="color: var(--danger-hover);">R$ 400,00</div>
+                </div>
+              </div>
+
+              <div class="financial-input-group" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 12px;">
+                <div class="form-group-erp">
+                  <label>Forma de Pagamento:</label>
+                  <select name="stud-forma-pagto" class="form-input-erp" onchange="triggerStudentCalculation();">
+                    <option value="Parcelado">Parcelado</option>
+                    <option value="À Vista">À Vista</option>
+                    <option value="Pix">Pix</option>
+                  </select>
+                </div>
+                <div class="form-group-erp">
+                  <label>Qtde de Parcelas:</label>
+                  <input type="text" name="stud-parcelas" class="form-input-erp" value="4" oninput="triggerStudentCalculation();" style="text-align: center;">
+                </div>
+                <div class="form-group-erp">
+                  <label>Valor da Parcela:</label>
+                  <div class="currency-viewer-erp" id="stud-val-parcela-view">R$ 100,00</div>
+                </div>
+                <div class="form-group-erp">
+                  <label>Vencimento:</label>
+                  <select name="stud-dia-venc" class="form-input-erp" onchange="triggerStudentCalculation();">
+                    <option value="Todo dia 10">Todo dia 10</option>
+                    <option value="Todo dia 15">Todo dia 15</option>
+                    <option value="Todo dia 20">Todo dia 20</option>
+                    <option value="Todo dia 25">Todo dia 25</option>
+                    <option value="Todo dia 30">Todo dia 30</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group-erp" style="width: 25%; margin-bottom: 12px;">
+                <label>Primeiro Vencimento:</label>
+                <input type="date" name="stud-prim-venc" class="form-input-erp" onchange="triggerStudentCalculation();">
+              </div>
+
+              <div class="payments-table-container-erp">
+                <table class="table-payments-erp">
+                  <thead>
+                    <tr>
+                      <th style="width: 60px; text-align: center;">Parcela</th>
+                      <th>Vencimento</th>
+                      <th>Valor</th>
+                      <th style="width: 50px; text-align: center;">Pago?</th>
+                      <th>Data Pagto.</th>
+                      <th>Forma Pagto.</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="student-payment-schedule-body"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="totals-card-erp">
+              <span class="totals-title-erp">Resumo de Matrícula</span>
+              <div class="total-row-erp">
+                <span>Total do Curso:</span>
+                <span id="stud-total-curso-view">R$ 500,00</span>
+              </div>
+              <div class="total-row-erp" style="color: var(--success-hover);">
+                <span>Total Pago:</span>
+                <span id="stud-total-pago-view">R$ 100,00</span>
+              </div>
+              <div class="total-row-erp highlight danger">
+                <span>Saldo Pendente:</span>
+                <span id="stud-saldo-pendente-view">R$ 400,00</span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 4. OBSERVAÇÕES E DOCUMENTOS -->
+        <fieldset class="form-section-erp">
+          <legend class="section-title-erp">📋 4. Observações e Documentos</legend>
+          <div class="form-grid">
+            <div class="form-group-erp col-5">
+              <label>Observações Gerais:</label>
+              <textarea class="form-input-erp" style="height: 60px;" placeholder="Qualquer detalhe ou observação comercial..."></textarea>
+            </div>
+            
+            <div class="form-group-erp col-3" style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <label>Contrato Assinado:</label>
+                <div class="toggle-btn-erp" id="stud-toggle-contrato" data-val="false">
+                  <div class="toggle-option-erp active-no" data-val="sim">Sim</div>
+                  <div class="toggle-option-erp" data-val="nao">Não</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <label>Documento Anexado:</label>
+                <div class="toggle-btn-erp" id="stud-toggle-documento" data-val="false">
+                  <div class="toggle-option-erp active-no" data-val="sim">Sim</div>
+                  <div class="toggle-option-erp" data-val="nao">Não</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <label>Certificado Emitido:</label>
+                <div class="toggle-btn-erp" id="stud-toggle-certificado" data-val="false">
+                  <div class="toggle-option-erp active-no" data-val="sim">Sim</div>
+                  <div class="toggle-option-erp" data-val="nao">Não</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group-erp col-4">
+              <label>Documentos Anexados:</label>
+              <div class="doc-upload-area">
+                <span style="font-size: 10px; color: var(--text-muted);">Formatos PDF, JPG, PNG</span>
+                <button type="button" class="btn-erp" onclick="const f = prompt('Digite o nome do arquivo a anexar:'); if(f) { const l = JSON.parse(document.getElementById('student-form').dataset.uploadedDocs || '[]'); l.push(f); document.getElementById('student-form').dataset.uploadedDocs = JSON.stringify(l); App.renderStudentUploadedDocs(l); }" style="height: 24px; font-size: 9px; padding: 0 8px;">+ Anexar</button>
+              </div>
+              <div class="uploaded-docs-list" id="student-uploaded-docs"></div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+      <!-- Rodapé de Ações do Modal ERP -->
+      <footer class="modal-footer-erp">
+        <div class="footer-actions-left">
+          <!-- Salvar -->
+          <button type="button" class="btn-icon-action btn-icon-save" data-tooltip="Salvar Cadastro (F2)" onclick="saveStudentForm();">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+            Salvar
+          </button>
+
+          <!-- Gerar Contrato -->
+          <button type="button" class="btn-icon-action btn-icon-contract" data-tooltip="Gerar Contrato PDF (F3)" onclick="alert('Contrato PDF gerado!'); App.setToggleValue('stud-toggle-contrato', true);">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            Contrato
+          </button>
+
+          <!-- Registrar Pagamento -->
+          <button type="button" class="btn-icon-action btn-icon-payment" data-tooltip="Registrar Pagamento (F4)" onclick="alert('Primeira parcela em aberto quitada!'); document.querySelector('.pay-checkbox:not(:checked)')?.click();">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            Pagto.
+          </button>
+        </div>
+
+        <div class="footer-actions-right">
+          <!-- Ver Parcelas -->
+          <button type="button" class="btn-icon-action btn-icon-view" data-tooltip="Ver Parcelas (F5)" onclick="document.getElementById('student-payment-schedule-body').scrollIntoView({ behavior: 'smooth' });">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+            Parcelas
+          </button>
+
+          <!-- Emitir Certificado -->
+          <button type="button" class="btn-icon-action btn-icon-contract" data-tooltip="Emitir Certificado (F6)" onclick="alert('Certificado emitido!'); App.setToggleValue('stud-toggle-certificado', true);">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+            Certif.
+          </button>
+
+          <div class="footer-divider"></div>
+
+          <!-- Cancelar / Fechar -->
+          <button type="button" class="btn-icon-action btn-icon-neutral" data-tooltip="Voltar para Alunos (ESC)" onclick="App.navigateTo('alunos');">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Voltar
+          </button>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+
+<!-- ==================== MODAL ERP: CADASTRO DE EMPRESA ===================== -->
+  <!-- ========================================================================= -->
+  <section id="company-form-view" class="view-section">
+    <div class="modal-window">
+      
+      <!-- Cabeçalho Janela ERP -->
+      <div class="modal-header-erp" style="background: linear-gradient(to right, #1e3a8a, #1d4ed8);">
+        <div class="window-title">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 18px; height: 18px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+          Cadastro e Gestão de Empresa (Tráfego Pago)
+        </div>
+        <div class="window-controls">
+          <button class="window-btn close-btn" onclick="App.navigateTo('empresas');">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Abas ERP da Empresa -->
+      <div class="tabs-header-erp">
+        <button type="button" class="tab-btn-erp active" data-tab="dados" onclick="switchCompanyTab('dados');">📋 1. Dados da Empresa</button>
+        <button type="button" class="tab-btn-erp" data-tab="contrato" onclick="switchCompanyTab('contrato');">📄 2. Plano & Contrato</button>
+        <button type="button" class="tab-btn-erp" data-tab="financeiro" onclick="switchCompanyTab('financeiro');">💰 3. Controle Financeiro</button>
+        <button type="button" class="tab-btn-erp" data-tab="meta" onclick="switchCompanyTab('meta');" style="color: #2563eb; font-weight: 700;">🚀 4. Campanhas Meta Ads</button>
+      </div>
+
+      <!-- Corpo do Modal -->
+      <form class="modal-body-erp" id="company-form" onsubmit="event.preventDefault();">
+        
+        <!-- ABA 1: DADOS DA EMPRESA -->
+        <div id="comp-tab-dados" class="tab-content-erp active">
+          <fieldset class="form-section-erp">
+            <legend class="section-title-erp">🏢 Cadastro da Empresa</legend>
+            <div class="form-grid">
+              <div class="form-group-erp col-4">
+                <label>Razão Social:</label>
+                <input type="text" name="comp-razao" class="form-input-erp" required>
+              </div>
+              <div class="form-group-erp col-4">
+                <label>Nome Fantasia:</label>
+                <input type="text" name="comp-fantasia" class="form-input-erp" required>
+              </div>
+              
+              <!-- Endereço Corporativo -->
+              <div class="form-group-erp col-4" style="grid-row: span 4;">
+                <label style="color: #1e3a8a; border-bottom: 1px solid var(--border-color); padding-bottom: 2px; margin-bottom: 4px;">Endereço Corporativo</label>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div class="form-group-erp">
+                    <label>CEP:</label>
+                    <div class="cep-group">
+                      <input type="text" name="comp-cep" id="comp-cep" class="form-input-erp" placeholder="45000-000">
+                      <button type="button" class="cep-btn-erp" onclick="buscarCEPEmpresa();">Buscar CEP</button>
+                    </div>
+                  </div>
+                  <div class="form-group-erp">
+                    <label>Endereço:</label>
+                    <input type="text" name="comp-endereco" id="comp-endereco" class="form-input-erp">
+                  </div>
+                  <div style="display: grid; grid-template-columns: 2fr 3fr; gap: 4px;">
+                    <div class="form-group-erp">
+                      <label>Número:</label>
+                      <input type="text" name="comp-numero" id="comp-numero" class="form-input-erp">
+                    </div>
+                    <div class="form-group-erp">
+                      <label>Sala/Conj.:</label>
+                      <input type="text" name="comp-complemento" class="form-input-erp" placeholder="SALA 02">
+                    </div>
+                  </div>
+                  <div class="form-group-erp">
+                    <label>Bairro:</label>
+                    <input type="text" name="comp-bairro" id="comp-bairro" class="form-input-erp">
+                  </div>
+                  <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 4px;">
+                    <div class="form-group-erp">
+                      <label>Cidade:</label>
+                      <input type="text" name="comp-cidade" id="comp-cidade" class="form-input-erp">
+                    </div>
+                    <div class="form-group-erp">
+                      <label>Estado:</label>
+                      <input type="text" name="comp-estado" id="comp-estado" class="form-input-erp" maxlength="2">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group-erp col-4">
+                <label>CNPJ:</label>
+                <input type="text" name="comp-cnpj" id="comp-cnpj" class="form-input-erp" placeholder="00.000.000/0001-00" required>
+              </div>
+              <div class="form-group-erp col-4">
+                <label>Inscrição Estadual:</label>
+                <input type="text" name="comp-ie" class="form-input-erp">
+              </div>
+              <div class="form-group-erp col-4">
+                <label>Segmento de Atuação:</label>
+                <select name="comp-segmento" id="comp-segmento-select" class="form-input-erp">
+                  <option value="Tecnologia da Informação">Tecnologia da Informação</option>
+                  <option value="Marketing Digital">Marketing Digital</option>
+                  <option value="E-commerce / Vestuário">E-commerce / Vestuário</option>
+                  <option value="Estética / Cosméticos">Estética / Cosméticos</option>
+                </select>
+              </div>
+              <div class="form-group-erp col-4">
+                <label>Porte da Empresa:</label>
+                <select name="comp-porte" class="form-input-erp">
+                  <option value="Pequena">Pequena Empresa</option>
+                  <option value="Média">Média Empresa</option>
+                  <option value="Grande">Grande Empresa</option>
+                </select>
+              </div>
+              <div class="form-group-erp col-2">
+                <label>Telefone:</label>
+                <input type="text" name="comp-telefone" class="form-input-erp">
+              </div>
+              <div class="form-group-erp col-2">
+                <label>WhatsApp:</label>
+                <input type="text" name="comp-whatsapp" id="comp-whatsapp" class="form-input-erp" placeholder="(00) 00000-0000">
+              </div>
+              <div class="form-group-erp col-2">
+                <label>E-mail:</label>
+                <input type="email" name="comp-email" class="form-input-erp">
+              </div>
+              <div class="form-group-erp col-2">
+                <label>Site:</label>
+                <input type="text" name="comp-site" class="form-input-erp">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- ABA 2: PLANO CONTRATADO -->
+        <div id="comp-tab-contrato" class="tab-content-erp">
+          <fieldset class="form-section-erp">
+            <legend class="section-title-erp">📋 Plano Contratado</legend>
+            <div class="form-grid">
+              <div class="form-group-erp col-4">
+                <label>Plano Contratado:</label>
+                <select name="comp-plano" id="comp-plano-select" class="form-input-erp" onchange="triggerCompanyCalculation();">
+                  <option value="PLANO PROFISSIONAL">PLANO PROFISSIONAL (R$ 3.500,00/mês)</option>
+                  <option value="PLANO AVANÇADO">PLANO AVANÇADO (R$ 4.800,00/mês)</option>
+                  <option value="PLANO EMPRESARIAL PREMIUM">PLANO EMPRESARIAL PREMIUM (R$ 499,90/mês)</option>
+                </select>
+              </div>
+              <div class="form-group-erp col-2">
+                <label>Data Inicial:</label>
+                <input type="date" name="comp-inicio" class="form-input-erp" onchange="triggerCompanyCalculation();">
+              </div>
+              <div class="form-group-erp col-2">
+                <label>Data de Término:</label>
+                <input type="date" name="comp-termino" class="form-input-erp">
+              </div>
+              <div class="form-group-erp col-2">
+                <label>Vencimento do Plano:</label>
+                <select name="comp-venc-plano" class="form-input-erp" onchange="triggerCompanyCalculation();">
+                  <option value="Todo dia 05">Todo dia 05</option>
+                  <option value="Todo dia 10">Todo dia 10</option>
+                  <option value="Todo dia 15">Todo dia 15</option>
+                  <option value="Todo dia 20">Todo dia 20</option>
+                </select>
+              </div>
+              <div class="form-group-erp col-2">
+                <label>Status do Plano:</label>
+                <select name="comp-status-plano" class="form-input-erp">
+                  <option value="ATIVO">ATIVO</option>
+                  <option value="INATIVO">INATIVO</option>
+                </select>
+              </div>
+              <div class="form-group-erp col-10">
+                <label>Descrição do Plano:</label>
+                <textarea name="comp-desc-plano" class="form-input-erp" style="height: 60px;"></textarea>
+              </div>
+              <div class="form-group-erp col-2">
+                <label>Qtd. Usuários Acesso:</label>
+                <input type="text" name="comp-usuarios" class="form-input-erp" style="text-align: center;">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section-erp" style="margin-top: 16px;">
+            <legend class="section-title-erp">📄 Documentação e Contrato</legend>
+            <div class="form-grid">
+              <div class="form-group-erp col-4" style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                  <label>Contrato Assinado:</label>
+                  <div class="toggle-btn-erp" id="comp-toggle-contrato" data-val="false">
+                    <div class="toggle-option-erp active-no" data-val="sim">Sim</div>
+                    <div class="toggle-option-erp" data-val="nao">Não</div>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                  <label>Documento Anexado:</label>
+                  <div class="toggle-btn-erp" id="comp-toggle-documento" data-val="false">
+                    <div class="toggle-option-erp active-no" data-val="sim">Sim</div>
+                    <div class="toggle-option-erp" data-val="nao">Não</div>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                  <label>Renovação Automática:</label>
+                  <div class="toggle-btn-erp" id="comp-toggle-renovacao" data-val="true">
+                    <div class="toggle-option-erp active-yes" data-val="sim">Sim</div>
+                    <div class="toggle-option-erp" data-val="nao">Não</div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group-erp col-4">
+                <label>Anexar Novo Arquivo:</label>
+                <div class="doc-upload-area">
+                  <span style="font-size: 10px; color: var(--text-muted);">Contrato PDF</span>
+                  <button type="button" class="btn-erp" onclick="const f = prompt('Digite o nome do PDF de contrato a anexar:'); if(f) { const l = JSON.parse(document.getElementById('company-form').dataset.uploadedDocs || '[]'); l.push(f); document.getElementById('company-form').dataset.uploadedDocs = JSON.stringify(l); App.renderCompanyUploadedDocs(l); }" style="height: 24px; font-size: 9px; padding: 0 8px;">+ Anexar</button>
+                </div>
+              </div>
+              <div class="form-group-erp col-4">
+                <label>Contratos Anexados:</label>
+                <div class="uploaded-docs-list" id="company-uploaded-docs"></div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- ABA 3: CONTROLE FINANCEIRO -->
+        <div id="comp-tab-financeiro" class="tab-content-erp">
+          <fieldset class="form-section-erp">
+            <legend class="section-title-erp">💰 Controle Financeiro do Contrato</legend>
+            <div class="finance-grid-erp">
+              <div>
+                <div class="financial-input-group">
+                  <div class="form-group-erp">
+                    <label>Valor Mensal do Plano:</label>
+                    <input type="text" name="comp-val-mensal" id="comp-val-mensal" class="form-input-erp" value="3500.00" oninput="triggerCompanyCalculation();" style="font-weight: 700; color: #1e3a8a;">
+                  </div>
+                  <div class="form-group-erp">
+                    <label>Desconto (%):</label>
+                    <input type="text" name="comp-desconto" id="comp-desconto" class="form-input-erp" value="0.00" oninput="triggerCompanyCalculation();">
+                  </div>
+                  <div class="form-group-erp">
+                    <label>Valor com Desconto:</label>
+                    <div class="currency-viewer-erp" id="comp-val-desc-view">R$ 3.500,00</div>
+                  </div>
+                  <div class="form-group-erp">
+                    <label>Taxas / Outras:</label>
+                    <input type="text" name="comp-taxas" id="comp-taxas" class="form-input-erp" value="0.00" oninput="triggerCompanyCalculation();">
+                  </div>
+                  <div class="form-group-erp">
+                    <label>Valor Total:</label>
+                    <div class="currency-viewer-erp" id="comp-val-total-view" style="color: var(--success-hover);">R$ 3.500,00</div>
+                  </div>
+                </div>
+
+                <div class="financial-input-group" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 12px;">
+                  <div class="form-group-erp">
+                    <label>Forma de Pagamento:</label>
+                    <select name="comp-forma-pagto" class="form-input-erp">
+                      <option value="Boleto Bancário">Boleto Bancário</option>
+                      <option value="Pix">Pix</option>
+                    </select>
+                  </div>
+                  <div class="form-group-erp">
+                    <label>Dia de Vencimento:</label>
+                    <select name="comp-dia-venc" class="form-input-erp" onchange="triggerCompanyCalculation();">
+                      <option value="Todo dia 05">Todo dia 05</option>
+                      <option value="Todo dia 10">Todo dia 10</option>
+                      <option value="Todo dia 15">Todo dia 15</option>
+                      <option value="Todo dia 20">Todo dia 20</option>
+                    </select>
+                  </div>
+                  <div class="form-group-erp">
+                    <label>Primeira Parcela / Início:</label>
+                    <input type="date" name="comp-prim-venc" class="form-input-erp" onchange="triggerCompanyCalculation();">
+                  </div>
+                  <div class="form-group-erp">
+                    <label>Observações Financeiras:</label>
+                    <input type="text" name="comp-obs-fin" class="form-input-erp">
+                  </div>
+                </div>
+
+                <div class="payments-table-container-erp" style="max-height: 150px; margin-bottom: 16px;">
+                  <table class="table-payments-erp">
+                    <thead>
+                      <tr>
+                        <th style="width: 50px; text-align: center;">Parcela</th>
+                        <th style="width: 50px; text-align: center;">Compet.</th>
+                        <th>Vencimento</th>
+                        <th>Valor Mensal</th>
+                        <th>Desconto</th>
+                        <th>Acréscimos</th>
+                        <th>Valor Total</th>
+                        <th style="width: 40px; text-align: center;">Pago?</th>
+                        <th>Status</th>
+                        <th>Data Pagto.</th>
+                        <th>Forma Pagto.</th>
+                      </tr>
+                    </thead>
+                    <tbody id="company-payment-schedule-body"></tbody>
+                  </table>
+                </div>
+
+                <div style="margin-top: 12px;">
+                  <h4 style="font-size: 11px; font-weight: 700; color: #1e3a8a; text-transform: uppercase; margin-bottom: 6px;">📜 Histórico de Pagamentos Recebidos</h4>
+                  <div class="payments-table-container-erp" style="max-height: 100px;">
+                    <table class="table-payments-erp">
+                      <thead>
+                        <tr>
+                          <th>Data Recebimento</th>
+                          <th>Descrição</th>
+                          <th>Valor</th>
+                          <th>Forma de Pagamento</th>
+                          <th>Operador</th>
+                        </tr>
+                      </thead>
+                      <tbody id="company-history-payments-body"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="totals-card-erp">
+                <span class="totals-title-erp">Resumo do Contrato</span>
+                <div class="total-row-erp">
+                  <span>Total Contrato:</span>
+                  <span id="comp-tot-contrato-view">R$ 0,00</span>
+                </div>
+                <div class="total-row-erp" style="color: var(--success-hover);">
+                  <span>Faturamento Pago:</span>
+                  <span id="comp-tot-pago-view">R$ 0,00</span>
+                </div>
+                <div class="total-row-erp highlight danger">
+                  <span>Saldo em Aberto:</span>
+                  <span id="comp-saldo-aberto-view">R$ 0,00</span>
+                </div>
+                <div style="margin-top: 8px; border-top: 1px solid rgba(59, 130, 246, 0.2); padding-top: 8px; display: flex; flex-direction: column; gap: 4px;">
+                  <span class="totals-title-erp" style="border: none;">Resumo do Plano</span>
+                  <div class="total-row-erp">
+                    <span>Plano:</span>
+                    <span id="comp-resumo-plano-name" style="font-weight: 700; color: #1e3a8a;">-</span>
+                  </div>
+                  <div class="total-row-erp">
+                    <span>Situação:</span>
+                    <span id="comp-resumo-status" class="badge active" style="font-size: 8px; padding: 2px 6px;">ATIVO</span>
+                  </div>
+                  <div class="total-row-erp">
+                    <span>Início:</span>
+                    <span id="comp-resumo-inicio">-</span>
+                  </div>
+                  <div class="total-row-erp">
+                    <span>Término:</span>
+                    <span id="comp-resumo-termino">-</span>
+                  </div>
+                  <div class="total-row-erp">
+                    <span>Mensal:</span>
+                    <span id="comp-resumo-mensal">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- ABA 4: META ADS & NOVO FORMULÁRIO INTERATIVO DE CAMPANHAS -->
+        <div id="comp-tab-meta" class="tab-content-erp">
+          <fieldset class="form-section-erp">
+            <legend class="section-title-erp" style="color: #2563eb; border-bottom-color: #2563eb;">🚀 Monitoramento de Campanhas Meta Ads</legend>
+            
+            <!-- Mini-formulário interativo de adição de campanhas -->
+            <div class="card" id="campanha-creator-panel" style="margin-bottom: 16px; border: 1px dashed #3b82f6; background-color: #eff6ff;">
+              <div class="card-header" style="padding: 10px 16px; border-bottom: 1px dashed rgba(59, 130, 246, 0.2);">
+                <h4 style="font-size: 11px; font-weight: 700; color: #1e3a8a; text-transform: uppercase;">➕ Adicionar / Editar Campanha de Tráfego</h4>
+              </div>
+              <div class="card-body" style="padding: 12px 16px;">
+                <div class="form-grid">
+                  <div class="form-group-erp col-4">
+                    <label>Nome da Campanha:</label>
+                    <input type="text" id="meta-camp-name" class="form-input-erp" placeholder="EX: [Conversão] Vendas Black Friday" required>
+                  </div>
+                  <div class="form-group-erp col-2">
+                    <label>Orçamento Diário (R$):</label>
+                    <input type="number" id="meta-camp-budget" class="form-input-erp" placeholder="50.00" required>
+                  </div>
+                  <div class="form-group-erp col-2">
+                    <label>Investimento Total (R$):</label>
+                    <input type="number" id="meta-camp-spent" class="form-input-erp" placeholder="1000.00" required>
+                  </div>
+                  <div class="form-group-erp col-2">
+                    <label>Resultados (Leads):</label>
+                    <input type="number" id="meta-camp-leads" class="form-input-erp" placeholder="80" required>
+                  </div>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;" class="col-2">
+                    <div class="form-group-erp">
+                      <label>Cliques:</label>
+                      <input type="number" id="meta-camp-clicks" class="form-input-erp" placeholder="1000" required>
+                    </div>
+                    <div class="form-group-erp">
+                      <label>Imp.:</label>
+                      <input type="number" id="meta-camp-impressions" class="form-input-erp" placeholder="15000" required>
+                    </div>
+                  </div>
+                  <div class="col-12" style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px;">
+                    <button type="button" class="btn-erp primary" onclick="window.saveMetaCampaignManual();" style="height: 28px; font-size: 10px;">Salvar Campanha</button>
+                    <button type="button" class="btn-erp" onclick="document.getElementById('meta-camp-name').value=''; document.getElementById('meta-camp-budget').value='';" style="height: 28px; font-size: 10px;">Limpar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painel das campanhas ativas e relatórios -->
+            <div id="meta-ads-content-panel"></div>
+          </fieldset>
+        </div>
+
+      </form>
+
+      <!-- Rodapé de Ações do Modal ERP - Empresa -->
+      <footer class="modal-footer-erp">
+        <div class="footer-actions-left">
+          <!-- Salvar Empresa -->
+          <button type="button" class="btn-icon-action btn-icon-save" data-tooltip="Salvar Empresa (F2)" onclick="saveCompanyForm();">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+            Salvar
+          </button>
+
+          <!-- Novo Cadastro -->
+          <button type="button" class="btn-icon-action btn-icon-neutral" data-tooltip="Novo Cadastro (F3)" onclick="openCompanyModal();">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            Novo
+          </button>
+
+          <!-- Gerar Contrato -->
+          <button type="button" class="btn-icon-action btn-icon-contract" data-tooltip="Gerar Contrato (F4)" onclick="alert('Contrato de Tráfego Pago gerado!'); App.setToggleValue('comp-toggle-contrato', true);">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            Contrato
+          </button>
+        </div>
+
+        <div class="footer-actions-right">
+          <!-- Registrar Pagamento -->
+          <button type="button" class="btn-icon-action btn-icon-payment" data-tooltip="Registrar Pagamento (F5)" onclick="alert('Lançamento rápido: Parcela contratual baixada!'); document.querySelector('.comp-pay-checkbox:not(:checked)')?.click();">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            Pagto.
+          </button>
+
+          <!-- Ver Parcelas -->
+          <button type="button" class="btn-icon-action btn-icon-view" data-tooltip="Ver Parcelas (F6)" onclick="switchCompanyTab('financeiro');">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+            Parcelas
+          </button>
+
+          <!-- WhatsApp Relatório -->
+          <button type="button" class="btn-icon-action btn-icon-share" data-tooltip="Compartilhar no WhatsApp (F7)" onclick="shareMetaReport();">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.449 5.474 0 9.938-4.43 9.94-9.885.002-2.643-1.019-5.127-2.877-6.986C16.48 1.875 14.004.855 11.37.855c-5.48 0-9.94 4.433-9.942 9.886-.002 1.957.514 3.87 1.492 5.56l-.973 3.55 3.65-.951.053-.027zm12.39-7.37c-.3-.15-1.77-.875-2.04-.975-.27-.1-.47-.15-.67.15-.2.3-.77.975-.94 1.175-.17.2-.34.225-.64.075-.3-.15-1.265-.467-2.41-1.485-.89-.794-1.49-1.77-1.665-2.07-.17-.3-.02-.462.13-.61.135-.133.3-.35.45-.525.15-.175.2-.3.3-.5.1-.2.05-.375-.025-.525-.075-.15-.67-1.625-.92-2.225-.244-.589-.487-.51-.67-.52-.172-.008-.371-.01-.57-.01-.2 0-.525.075-.8.375-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.11 3.225 5.11 4.525.714.31 1.27.495 1.7.635.715.225 1.365.195 1.88.115.575-.085 1.77-.725 2.02-1.39.25-.665.25-1.24.175-1.39-.075-.15-.275-.225-.575-.375z"/></svg>
+            WhatsApp
+          </button>
+
+          <!-- Desativar -->
+          <button type="button" class="btn-icon-action btn-icon-danger" data-tooltip="Desativar Empresa (F8)" onclick="if(confirm('Deseja desativar esta empresa?')) { document.getElementById('company-form').elements['comp-status-plano'].value = 'INATIVO'; updateCompanyTotals(); }">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+            Desativar
+          </button>
+
+          <div class="footer-divider"></div>
+
+          <!-- Fechar / Voltar -->
+          <button type="button" class="btn-icon-action btn-icon-neutral" data-tooltip="Voltar para Empresas (ESC)" onclick="App.navigateTo('empresas');">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Voltar
+          </button>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+      </div>
+
+      <!-- Rodapé Visual do App -->
+      <footer style="text-align: center; font-size: 11px; color: var(--text-muted); padding: 16px; border-top: 1px solid var(--border-color); background-color: var(--bg-card); flex-shrink: 0;">
+        © 2026 VOOLT - Todos os direitos reservados. PWA Full-Stack.
+      </footer>
+    </main>
+
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- PWA Service Worker Registration Script -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js")
+          .then((reg) => console.log("PWA Service Worker registrado com sucesso:", reg.scope))
+          .catch((err) => console.warn("PWA Service Worker falhou ao registrar:", err));
+      });
+    }
+
+    // Gerenciador do botão de instalação PWA na Área de Trabalho
+    let deferredPrompt;
+    const installBtn = document.getElementById("pwa-install-btn");
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = "flex"; // Mostra o botão elegante de instalação
+    });
+
+    installBtn.addEventListener("click", (e) => {
+      installBtn.style.display = "none";
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("Usuário aceitou a instalação do aplicativo VOOLT PWA!");
+        } else {
+          console.log("Usuário recusou a instalação.");
+        }
+        deferredPrompt = null;
+      });
+    });
+  </script>
+
+  <!-- Scripts do App (Chamadas de API) -->
+  <script src="js/mockData.js"></script>
+  <script src="js/studentManager.js"></script>
+  <script src="js/companyManager.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

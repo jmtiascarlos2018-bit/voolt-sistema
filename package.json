@@ -1,0 +1,16 @@
+{
+  "name": "escola-digital",
+  "version": "1.0.0",
+  "description": "Sistema de Gestão de Cursos e Tráfego Pago - Escola Digital PWA Full-Stack",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "sqlite3": "^5.1.7"
+  }
+}
