@@ -47,10 +47,10 @@ export default function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/alunos" element={<AlunosList />} />
               <Route path="/alunos/novo" element={<AlunoForm />} />
-              <Route path="/alunos/editar/:id" element={<AlunoForm />} />
+              <Route path="/alunos/:id" element={<AlunoForm />} />
               <Route path="/empresas" element={<EmpresasList />} />
-              <Route path="/empresas/nova" element={<EmpresaForm />} />
-              <Route path="/empresas/editar/:id" element={<EmpresaForm />} />
+              <Route path="/empresas/novo" element={<EmpresaForm />} />
+              <Route path="/empresas/:id" element={<EmpresaForm />} />
               <Route path="/cursos" element={<Cursos />} />
               <Route path="/cursos/novo" element={<CursoForm />} />
               <Route path="/planos" element={<Planos />} />
