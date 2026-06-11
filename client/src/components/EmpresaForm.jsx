@@ -158,9 +158,7 @@ export default function EmpresaForm() {
               <div className="col-span-4"><label className="form-label">CNPJ *</label><input className="form-input font-mono" value={form.cnpj} onChange={e => set('cnpj', e.target.value)} placeholder="00.000.000/0001-00" /></div>
               <div className="col-span-4"><label className="form-label">Inscrição Estadual</label><input className="form-input" value={form.inscricaoEstadual} onChange={e => set('inscricaoEstadual', e.target.value)} /></div>
               <div className="col-span-4"><label className="form-label">Segmento</label>
-                <select className="form-select" value={form.segmento} onChange={e => set('segmento', e.target.value)}>
-                  {['Tecnologia da Informação','Marketing Digital','E-commerce / Vestuário','Estética / Cosméticos'].map(o => <option key={o}>{o}</option>)}
-                </select>
+                <input className="form-input" value={form.segmento} onChange={e => set('segmento', e.target.value)} placeholder="Ex: Tecnologia, Estética, Varejo" />
               </div>
               <div className="col-span-4"><label className="form-label">Porte</label>
                 <select className="form-select" value={form.porte} onChange={e => set('porte', e.target.value)}>
