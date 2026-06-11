@@ -1,1 +1,7 @@
+/assets/* /assets/:splat 200
+/icons/* /icons/:splat 200
+/favicon.svg /favicon.svg 200
+/manifest.json /manifest.json 200
+/sw.js /sw.js 200
+/voolt-logo.jpeg /voolt-logo.jpeg 200
 /* /index.html 200
