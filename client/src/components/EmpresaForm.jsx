@@ -156,16 +156,43 @@ export default function EmpresaForm() {
     getEmpresas().then(list => {
       const e = list.find(x => x.id === id)
       if (e) {
+        const getMesesDiff = () => {
+          if (!e.dataInicio || !e.dataTermino) return 12
+          const d1 = new Date(e.dataInicio + 'T12:00:00')
+          const d2 = new Date(e.dataTermino + 'T12:00:00')
+          const diff = (d2.getFullYear() - d1.getFullYear()) * 12 + d2.getMonth() - d1.getMonth()
+          return Math.max(1, diff)
+        }
+        
+        const parcelasCount = (e.parcelasContrato && e.parcelasContrato.length > 0) ? e.parcelasContrato.length : 0
+        const q = parcelasCount || parseInt(e.qtdeParcelas) || getMesesDiff()
+
+        const totalM = parseFloat(e.valorMensal) || 0
+        const dVal = parseFloat(e.desconto) || 0
+        const comDesc = Math.max(0, totalM - dVal)
+        const tx = parseFloat(e.taxas) || 0
+        const ent = parseFloat(e.entrada) || 0
+        const totalCont = comDesc + tx
+        const aParc = Math.max(0, totalCont - ent)
+        const calculatedVlrParcela = q > 0 ? aParc / q : 0
+
         setForm(f => ({
           ...f, ...e,
+          qtdeParcelas: q,
           documentos: typeof e.documentos === 'string' ? e.documentos.split(',').filter(Boolean) : (e.documentos || []),
           campanhas: e.campanhas || [],
           contratoAssinado: !!e.contratoAssinado,
           documentoAnexado: !!e.documentoAnexado,
           renovacaoAutomatica: e.renovacaoAutomatica !== 0,
         }))
+
         if (e.parcelasContrato && e.parcelasContrato.length > 0) {
-          setParcelasContratoState(e.parcelasContrato)
+          const novas = e.parcelasContrato.map(p => ({
+            ...p,
+            valor: calculatedVlrParcela,
+            total: calculatedVlrParcela
+          }))
+          setParcelasContratoState(novas)
         }
       }
     })
