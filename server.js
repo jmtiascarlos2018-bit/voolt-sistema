@@ -351,81 +351,8 @@ function initDatabaseSchema() {
   });
 }
 
-// Massa de dados inicial (Seeds)
 function seedInitialData() {
-  db.get("SELECT COUNT(*) as count FROM alunos", (err, row) => {
-    if (err) return;
-    if (row.count === 0) {
-      console.log("Banco de dados vazio! Rodando as sementes (seeds)...");
-      const { initialAlunos, initialEmpresas } = require("./js/mockDataSeed.js");
-
-      // Inserir Alunos e Parcelas
-      initialAlunos.forEach(aluno => {
-        db.run(`
-          INSERT INTO alunos (
-            id, nome, email, cpf, rg, whatsapp, telefone, dataNasc, sexo, estadoCivil, responsavel, parentesco,
-            cep, endereco, numero, complemento, bairro, cidade, estado,
-            curso, turma, dataInicio, dataTermino, diasSemana, horarioInicio, horarioFim, professor, modalidade, cargaHoraria, status, observacoes,
-            valorTotal, desconto, valorDesconto, entrada, valorParcelar, formaPagamento, qtdeParcelas, valorParcela, diaVencimento, primeiroVencimento,
-            contratoAssinado, documentoAnexado, certificadoEmitido, documentos
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `, [
-          aluno.id, aluno.nome, aluno.email, aluno.cpf, aluno.rg, aluno.whatsapp, aluno.telefone, aluno.dataNasc, aluno.sexo, aluno.estadoCivil, aluno.responsavel, aluno.parentesco,
-          aluno.cep, aluno.endereco, aluno.numero, aluno.complemento, aluno.bairro, aluno.cidade, aluno.estado,
-          aluno.curso, aluno.turma, aluno.dataInicio, aluno.dataTermino, aluno.diasSemana.join(","), aluno.horarioInicio, aluno.horarioFim, aluno.professor, aluno.modalidade, aluno.cargaHoraria, aluno.status, aluno.observacoes,
-          aluno.valorTotal, aluno.desconto, aluno.valorDesconto, aluno.entrada, aluno.valorParcelar, aluno.formaPagamento, aluno.qtdeParcelas, aluno.valorParcela, aluno.diaVencimento, aluno.primeiroVencimento,
-          aluno.contratoAssinado ? 1 : 0, aluno.documentoAnexado ? 1 : 0, aluno.certificadoEmitido ? 1 : 0, aluno.documentos.join(",")
-        ], function(err) {
-          if (err) return console.error(err);
-          // Inserir parcelas dele
-          aluno.parcelas.forEach(p => {
-            db.run(`
-              INSERT INTO parcelas (alunoId, numero, vencimento, valor, pago, dataPagamento, formaPagamento, status)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            `, [aluno.id, p.numero, p.vencimento, p.valor, p.pago ? 1 : 0, p.dataPagamento, p.formaPagamento, p.status]);
-          });
-        });
-      });
-
-      // Inserir Empresas, Parcelas de Contrato e Campanhas Meta
-      initialEmpresas.forEach(empresa => {
-        db.run(`
-          INSERT INTO empresas (
-            id, razaoSocial, nomeFantasia, cnpj, inscricaoEstadual, segmento, porte, telefone, whatsapp, email, site,
-            cep, endereco, numero, complemento, bairro, cidade, estado,
-            plano, dataInicio, dataTermino, diaVencimento, statusPlano, usuariosContratados, descricaoPlano,
-            valorMensal, desconto, valorComDesconto, taxas, valorTotal, formaPagamento, situacaoFinanceira, observacoesFinanceiras, duracaoMeses,
-            contratoAssinado, documentoAnexado, renovacaoAutomatica, documentos
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `, [
-          empresa.id, empresa.razaoSocial, empresa.nomeFantasia, empresa.cnpj, empresa.inscricaoEstadual, empresa.segmento, empresa.porte, empresa.telefone, empresa.whatsapp, empresa.email, empresa.site,
-          empresa.cep, empresa.endereco, empresa.numero, empresa.complemento, empresa.bairro, empresa.cidade, empresa.estado,
-          empresa.plano, empresa.dataInicio, empresa.dataTermino, empresa.diaVencimento, empresa.statusPlano, empresa.usuariosContratados, empresa.descricaoPlano,
-          empresa.valorMensal, empresa.desconto, empresa.valorComDesconto, empresa.taxas, empresa.valorTotal, empresa.formaPagamento, empresa.situacaoFinanceira, empresa.observacoesFinanceiras, empresa.duracaoMeses,
-          empresa.contratoAssinado ? 1 : 0, empresa.documentoAnexado ? 1 : 0, empresa.renovacaoAutomatica ? 1 : 0, empresa.documentos.join(",")
-        ], function(err) {
-          if (err) return console.error(err);
-
-          // Inserir parcelas de contrato
-          empresa.parcelasContrato.forEach(p => {
-            db.run(`
-              INSERT INTO parcelas_contrato (empresaId, parcela, competencia, vencimento, valor, desconto, acrescimos, total, status, dataPagamento, formaPagamento)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            `, [empresa.id, p.parcela, p.competencia, p.vencimento, p.valor, p.desconto, p.acrescimos, p.total, p.status, p.dataPagamento, p.formaPagamento]);
-          });
-
-          // Inserir campanhas meta
-          empresa.campanhasMeta.forEach(camp => {
-            db.run(`
-              INSERT INTO campanhas_meta (empresaId, nome, status, orcamentoDiario, valorGasto, impressoes, cliques, resultados, cpa)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            `, [empresa.id, camp.nome, camp.status, camp.orcamentoDiario, camp.valorGasto, camp.impressoes, camp.cliques, camp.resultados, camp.cpa]);
-          });
-        });
-      });
-      console.log("Seeds do SQLite inseridas com total sucesso!");
-    }
-  });
+  // Sementes de alunos e empresas foram removidas para o banco iniciar limpo.
 
   // Seeder de Planos
   db.get("SELECT COUNT(*) as count FROM planos", (err, row) => {
