@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getPlanos, savePlano, deletePlano } from '../api'
 
 const fmtBRL = v => Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
@@ -27,7 +27,7 @@ export default function Planos() {
     ativo: true
   })
 
-  const load = () => {
+  const load = useCallback(() => {
     setLoading(true)
     setError(null)
     const targetUrl = '/api/planos'
@@ -45,11 +45,11 @@ export default function Planos() {
         setError(`Erro ao carregar os planos. Erro: ${err.message}`)
       })
       .finally(() => setLoading(false))
-  }
+  }, [])
 
   useEffect(() => {
-    load()
-  }, [])
+    queueMicrotask(load)
+  }, [load])
 
   const handleEdit = (p) => {
     setEditingPlano(p)

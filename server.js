@@ -5,12 +5,18 @@ const fs = require("fs");
 const multer = require("multer");
 const sqlite3 = require("sqlite3").verbose();
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+
+const JWT_SECRET = process.env.JWT_SECRET || "super-secret-key-voolt-2026";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const DATA_DIR = process.env.DATA_DIR || __dirname;
 
-// Criar pasta de uploads se não existir
-const uploadsDir = path.join(__dirname, "uploads");
+// Criar pasta de uploads se não existir (usando DATA_DIR para persistência)
+const uploadsDir = path.join(DATA_DIR, "uploads");
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
@@ -69,11 +75,16 @@ app.use((req, res, next) => {
 app.get("/api/health", (req, res) => {
   res.json({ status: "OK", database: "connected", timestamp: new Date() });
 });
-app.use(express.static(path.join(__dirname)));
+
+// Servir arquivos estáticos do uploads
 app.use("/uploads", express.static(uploadsDir));
 
-// Conexão com o banco de dados SQLite local
-const dbPath = path.join(__dirname, "database.sqlite");
+// Servir frontend compilado (React/Vite) em produção
+const clientBuildPath = path.join(__dirname, "client", "dist");
+app.use(express.static(clientBuildPath));
+
+// Conexão com o banco de dados SQLite local ou no Volume Persistente
+const dbPath = path.join(DATA_DIR, "database.sqlite");
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error("Erro ao conectar no SQLite:", err.message);
@@ -289,11 +300,53 @@ function initDatabaseSchema() {
       CREATE TABLE IF NOT EXISTS usuarios (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         email TEXT UNIQUE,
-        senha TEXT
+        senha TEXT,
+        resetToken TEXT,
+        resetExpires INTEGER
+      )
+    `);
+
+    // 9. Tabela de Serviços Extras de Empresas
+    db.run(`
+      CREATE TABLE IF NOT EXISTS servicos_extras (
+        id TEXT PRIMARY KEY,
+        empresaId TEXT NOT NULL,
+        data TEXT,
+        tipo TEXT,
+        descricao TEXT,
+        quantidade INTEGER DEFAULT 1,
+        valorUnitario REAL DEFAULT 0,
+        valorTotal REAL DEFAULT 0,
+        status TEXT DEFAULT 'Pendente',
+        aprovadoCliente INTEGER DEFAULT 0,
+        formaAprovacao TEXT,
+        mesCobranca TEXT,
+        observacao TEXT,
+        createdAt TEXT,
+        FOREIGN KEY(empresaId) REFERENCES empresas(id) ON DELETE CASCADE
       )
     `);
 
     // Alimentar dados iniciais padrão se estiver vazio
+    // 10. Tabela de Contas a Pagar
+    db.run(`
+      CREATE TABLE IF NOT EXISTS contas_pagar (
+        id TEXT PRIMARY KEY,
+        descricao TEXT NOT NULL,
+        categoria TEXT,
+        valor REAL DEFAULT 0,
+        data_vencimento TEXT,
+        data_pagamento TEXT,
+        forma_pagamento TEXT,
+        recorrencia TEXT,
+        prioridade TEXT,
+        observacoes TEXT,
+        status TEXT DEFAULT 'pendente',
+        createdAt TEXT,
+        updatedAt TEXT
+      )
+    `);
+
     seedInitialData();
   });
 }
@@ -418,14 +471,15 @@ function seedInitialData() {
     }
   });
 
-  // Seeder de Usuários
-  db.get("SELECT COUNT(*) as count FROM usuarios", (err, row) => {
-    if (err) return;
-    if (row.count === 0) {
-      db.run("INSERT INTO usuarios (email, senha) VALUES ('admin@voolt.com', '123456')");
-      console.log("Seeding do usuario admin padrão concluído!");
-    }
-  });
+    // Seeding inicial de Usuários com bcrypt
+    db.get("SELECT COUNT(*) AS count FROM usuarios", async (err, row) => {
+      if (err) return;
+      if (row.count === 0) {
+        const hash = await bcrypt.hash("123456", 10);
+        db.run("INSERT INTO usuarios (email, senha) VALUES ('admin@voolt.com', ?)", [hash]);
+        console.log("Seeding do usuario admin padrão concluído com senha hash!");
+      }
+    });
 }
 
 // ==========================================
@@ -437,15 +491,82 @@ app.post("/api/login", (req, res) => {
   if (!email || !password) {
     return res.status(400).json({ error: "E-mail e senha são obrigatórios." });
   }
-  db.get("SELECT * FROM usuarios WHERE email = ? AND senha = ?", [email, password], (err, row) => {
-    if (err) {
-      return res.status(500).json({ error: "Erro no banco de dados." });
-    }
-    if (row) {
-      res.json({ email: row.email, success: true });
+  db.get("SELECT * FROM usuarios WHERE email = ?", [email], async (err, row) => {
+    if (err) return res.status(500).json({ error: "Erro no banco de dados." });
+    
+    // Fallback pra login em plain text caso a senha ainda não tenha sido convertida (sistema antigo)
+    if (row && (await bcrypt.compare(password, row.senha) || row.senha === password)) {
+      if (row.senha === password) {
+        // Migra automaticamente para bcrypt
+        const hash = await bcrypt.hash(password, 10);
+        db.run("UPDATE usuarios SET senha = ? WHERE id = ?", [hash, row.id]);
+      }
+      const token = jwt.sign({ id: row.id, email: row.email }, JWT_SECRET, { expiresIn: '8h' });
+      res.json({ email: row.email, token, success: true });
     } else {
       res.status(401).json({ error: "E-mail ou senha inválidos." });
     }
+  });
+});
+
+app.post("/api/forgot-password", async (req, res) => {
+  const { email } = req.body;
+  db.get("SELECT * FROM usuarios WHERE email = ?", [email], async (err, row) => {
+    if (err || !row) {
+      // Não revela se o usuário existe, mas diz que enviou
+      return res.json({ success: true, message: "Se o e-mail existir, você receberá um link de recuperação." });
+    }
+    
+    const resetToken = require('crypto').randomBytes(32).toString('hex');
+    const resetExpires = Date.now() + 3600000; // 1 hora
+    
+    db.run("UPDATE usuarios SET resetToken = ?, resetExpires = ? WHERE id = ?", [resetToken, resetExpires, row.id], async (err) => {
+      if (err) return res.status(500).json({ error: "Erro interno." });
+      
+      // Cria conta de teste no Ethereal
+      let testAccount = await nodemailer.createTestAccount();
+      let transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false, 
+        auth: {
+          user: testAccount.user, 
+          pass: testAccount.pass, 
+        },
+      });
+
+      const resetLink = `http://localhost:5173/resetar-senha?token=${resetToken}`;
+      const prodLink = `https://${req.headers.host}/resetar-senha?token=${resetToken}`;
+      const linkToUse = req.headers.host.includes('localhost') ? resetLink : prodLink;
+
+      let info = await transporter.sendMail({
+        from: '"Suporte Voolt" <suporte@voolt.com>',
+        to: email,
+        subject: "Recuperação de Senha - Voolt",
+        text: `Você solicitou a recuperação de senha. Clique no link para redefinir: ${linkToUse}`,
+        html: `<p>Você solicitou a recuperação de senha.</p><p>Clique no link para redefinir:</p><a href="${linkToUse}">${linkToUse}</a>`
+      });
+
+      console.log("=========================================");
+      console.log("URL DO E-MAIL DE RECUPERAÇÃO DE SENHA:");
+      console.log(nodemailer.getTestMessageUrl(info));
+      console.log("=========================================");
+
+      res.json({ success: true, message: "Se o e-mail existir, você receberá um link de recuperação." });
+    });
+  });
+});
+
+app.post("/api/reset-password", async (req, res) => {
+  const { token, newPassword } = req.body;
+  db.get("SELECT * FROM usuarios WHERE resetToken = ? AND resetExpires > ?", [token, Date.now()], async (err, row) => {
+    if (err || !row) return res.status(400).json({ error: "Token inválido ou expirado." });
+    
+    const hash = await bcrypt.hash(newPassword, 10);
+    db.run("UPDATE usuarios SET senha = ?, resetToken = NULL, resetExpires = NULL WHERE id = ?", [hash, row.id], (err) => {
+      if (err) return res.status(500).json({ error: "Erro ao atualizar senha." });
+      res.json({ success: true, message: "Senha atualizada com sucesso!" });
+    });
   });
 });
 
@@ -928,7 +1049,173 @@ app.delete("/api/alunos/:alunoId/documentos/:documentoId", (req, res) => {
   });
 });
 
+// 8. ENDPOINTS: SERVIÇOS EXTRAS DE EMPRESAS
+app.get("/api/empresas/:empresaId/servicos-extras", (req, res) => {
+  const { empresaId } = req.params;
+  db.all("SELECT * FROM servicos_extras WHERE empresaId = ? ORDER BY data DESC", [empresaId], (err, rows) => {
+    if (err) return res.status(500).json({ error: err.message });
+    rows.forEach(r => { r.aprovadoCliente = r.aprovadoCliente === 1; });
+    res.json(rows);
+  });
+});
+
+app.post("/api/empresas/:empresaId/servicos-extras", (req, res) => {
+  const { empresaId } = req.params;
+  const s = req.body;
+  const id = s.id || ("extra-" + Date.now());
+  const createdAt = s.createdAt || new Date().toISOString();
+  db.run(`
+    INSERT OR REPLACE INTO servicos_extras
+      (id, empresaId, data, tipo, descricao, quantidade, valorUnitario, valorTotal,
+       status, aprovadoCliente, formaAprovacao, mesCobranca, observacao, createdAt)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+  `, [
+    id, empresaId, s.data, s.tipo, s.descricao,
+    s.quantidade, s.valorUnitario, s.valorTotal,
+    s.status, s.aprovadoCliente ? 1 : 0,
+    s.formaAprovacao, s.mesCobranca, s.observacao, createdAt
+  ], function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json({ ...s, id, empresaId, createdAt });
+  });
+});
+
+app.put("/api/empresas/:empresaId/servicos-extras/:extraId", (req, res) => {
+  const { extraId } = req.params;
+  const s = req.body;
+  db.run(`
+    UPDATE servicos_extras SET
+      data=?, tipo=?, descricao=?, quantidade=?, valorUnitario=?, valorTotal=?,
+      status=?, aprovadoCliente=?, formaAprovacao=?, mesCobranca=?, observacao=?
+    WHERE id=?
+  `, [
+    s.data, s.tipo, s.descricao, s.quantidade, s.valorUnitario, s.valorTotal,
+    s.status, s.aprovadoCliente ? 1 : 0, s.formaAprovacao, s.mesCobranca, s.observacao,
+    extraId
+  ], function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json({ success: true, ...s, id: extraId });
+  });
+});
+
+app.delete("/api/empresas/:empresaId/servicos-extras/:extraId", (req, res) => {
+  const { extraId } = req.params;
+  db.run("DELETE FROM servicos_extras WHERE id = ?", [extraId], function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json({ success: true });
+  });
+});
+
+// Fallback: Redirecionar todas as outras requisições para o Frontend
+function normalizeContaStatus(conta) {
+  if (conta.status === "pago" || conta.status === "cancelado") return conta.status;
+  const hoje = new Date().toISOString().slice(0, 10);
+  if (conta.data_vencimento && conta.data_vencimento < hoje) return "vencido";
+  return conta.status || "pendente";
+}
+
+function mapConta(row) {
+  return {
+    ...row,
+    valor: Number(row.valor || 0),
+    status: normalizeContaStatus(row)
+  };
+}
+
+// 9. ENDPOINTS: CONTAS A PAGAR
+app.get("/api/contas-pagar", (req, res) => {
+  db.all("SELECT * FROM contas_pagar ORDER BY data_vencimento ASC, createdAt DESC", [], (err, rows) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(rows.map(mapConta));
+  });
+});
+
+app.get("/api/contas-pagar/resumo", (req, res) => {
+  db.all("SELECT * FROM contas_pagar", [], (err, rows) => {
+    if (err) return res.status(500).json({ error: err.message });
+    const resumo = rows.map(mapConta).reduce((acc, conta) => {
+      if (conta.status !== "cancelado") acc.totalGeral += conta.valor;
+      if (conta.status === "pago") acc.totalPago += conta.valor;
+      if (conta.status === "vencido") acc.totalVencido += conta.valor;
+      if (conta.status === "pendente" || conta.status === "vencido") acc.totalAPagar += conta.valor;
+      return acc;
+    }, { totalAPagar: 0, totalPago: 0, totalVencido: 0, totalGeral: 0 });
+    resumo.saldo = resumo.totalPago - resumo.totalAPagar;
+    res.json(resumo);
+  });
+});
+
+app.post("/api/contas-pagar", (req, res) => {
+  const conta = req.body;
+  const id = conta.id || ("conta-" + Date.now());
+  const createdAt = conta.createdAt || new Date().toISOString();
+  const updatedAt = new Date().toISOString();
+  db.run(`
+    INSERT OR REPLACE INTO contas_pagar
+      (id, descricao, categoria, valor, data_vencimento, data_pagamento,
+       forma_pagamento, recorrencia, prioridade, observacoes, status, createdAt, updatedAt)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `, [
+    id, conta.descricao, conta.categoria, conta.valor || 0, conta.data_vencimento,
+    conta.data_pagamento || "", conta.forma_pagamento, conta.recorrencia, conta.prioridade,
+    conta.observacoes, conta.status || "pendente", createdAt, updatedAt
+  ], function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(mapConta({ ...conta, id, createdAt, updatedAt }));
+  });
+});
+
+app.put("/api/contas-pagar/:id", (req, res) => {
+  const { id } = req.params;
+  const conta = req.body;
+  const updatedAt = new Date().toISOString();
+  db.run(`
+    UPDATE contas_pagar SET
+      descricao=?, categoria=?, valor=?, data_vencimento=?, data_pagamento=?,
+      forma_pagamento=?, recorrencia=?, prioridade=?, observacoes=?, status=?, updatedAt=?
+    WHERE id=?
+  `, [
+    conta.descricao, conta.categoria, conta.valor || 0, conta.data_vencimento,
+    conta.data_pagamento || "", conta.forma_pagamento, conta.recorrencia,
+    conta.prioridade, conta.observacoes, conta.status || "pendente", updatedAt, id
+  ], function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    if (this.changes === 0) return res.status(404).json({ error: "Conta nao encontrada." });
+    res.json(mapConta({ ...conta, id, updatedAt }));
+  });
+});
+
+app.delete("/api/contas-pagar/:id", (req, res) => {
+  const { id } = req.params;
+  db.run("DELETE FROM contas_pagar WHERE id = ?", [id], function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    if (this.changes === 0) return res.status(404).json({ error: "Conta nao encontrada." });
+    res.json({ success: true });
+  });
+});
+
+app.patch("/api/contas-pagar/:id/pagar", (req, res) => {
+  const { id } = req.params;
+  const dataPagamento = req.body.data_pagamento || new Date().toISOString().slice(0, 10);
+  const formaPagamento = req.body.forma_pagamento || "";
+  const updatedAt = new Date().toISOString();
+  db.run(`
+    UPDATE contas_pagar
+    SET status='pago', data_pagamento=?, forma_pagamento=?, updatedAt=?
+    WHERE id=?
+  `, [dataPagamento, formaPagamento, updatedAt, id], function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    if (this.changes === 0) return res.status(404).json({ error: "Conta nao encontrada." });
+    res.json({ success: true, id, status: "pago", data_pagamento: dataPagamento, forma_pagamento: formaPagamento });
+  });
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
+
 // Inicialização e Inicialização do Host do Servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando no endereço: http://localhost:${PORT}`);
+  console.log(`Banco e Arquivos salvos em: ${DATA_DIR}`);
 });

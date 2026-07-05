@@ -138,3 +138,79 @@ export async function deleteDocumento(alunoId, docId) {
   if (!r.ok) throw new Error('Erro ao deletar documento')
   return r.json()
 }
+
+// ─── SERVIÇOS EXTRAS ─────────────────────────────────────────────────────────
+export async function getServicosExtras(empresaId) {
+  const r = await fetch(`${BASE}/empresas/${empresaId}/servicos-extras`)
+  if (!r.ok) throw new Error('Erro ao buscar serviços extras')
+  return r.json()
+}
+
+export async function createServicoExtra(empresaId, data) {
+  const r = await fetch(`${BASE}/empresas/${empresaId}/servicos-extras`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!r.ok) throw new Error('Erro ao criar serviço extra')
+  return r.json()
+}
+
+export async function updateServicoExtra(empresaId, extraId, data) {
+  const r = await fetch(`${BASE}/empresas/${empresaId}/servicos-extras/${extraId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!r.ok) throw new Error('Erro ao atualizar serviço extra')
+  return r.json()
+}
+
+export async function deleteServicoExtra(empresaId, extraId) {
+  const r = await fetch(`${BASE}/empresas/${empresaId}/servicos-extras/${extraId}`, {
+    method: 'DELETE',
+  })
+  if (!r.ok) throw new Error('Erro ao deletar serviço extra')
+  return r.json()
+}
+
+// ─── CONTAS A PAGAR ──────────────────────────────────────────────────────────
+export async function getContasPagar() {
+  const r = await fetch(`${BASE}/contas-pagar`)
+  if (!r.ok) throw new Error('Erro ao buscar contas a pagar')
+  return r.json()
+}
+
+export async function getResumoContasPagar() {
+  const r = await fetch(`${BASE}/contas-pagar/resumo`)
+  if (!r.ok) throw new Error('Erro ao buscar resumo financeiro')
+  return r.json()
+}
+
+export async function saveContaPagar(data) {
+  const method = data.id ? 'PUT' : 'POST'
+  const url = data.id ? `${BASE}/contas-pagar/${data.id}` : `${BASE}/contas-pagar`
+  const r = await fetch(url, {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!r.ok) throw new Error('Erro ao salvar conta a pagar')
+  return r.json()
+}
+
+export async function deleteContaPagar(id) {
+  const r = await fetch(`${BASE}/contas-pagar/${id}`, { method: 'DELETE' })
+  if (!r.ok) throw new Error('Erro ao excluir conta a pagar')
+  return r.json()
+}
+
+export async function marcarContaPaga(id, data = {}) {
+  const r = await fetch(`${BASE}/contas-pagar/${id}/pagar`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!r.ok) throw new Error('Erro ao marcar conta como paga')
+  return r.json()
+}

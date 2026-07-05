@@ -46,6 +46,12 @@ export default function LoginVoolt({ onLoginSuccess }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Estados para Esqueci a Senha
+  const [showForgot, setShowForgot] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotMsg, setForgotMsg] = useState("");
+  const [forgotLoading, setForgotLoading] = useState(false);
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -64,17 +70,41 @@ export default function LoginVoolt({ onLoginSuccess }) {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        localStorage.setItem("user", JSON.stringify({ email: data.email }));
+        localStorage.setItem("user", JSON.stringify({ email: data.email, token: data.token }));
         if (onLoginSuccess) {
           onLoginSuccess();
         }
       } else {
         setError(data.error || "Erro de login desconhecido.");
       }
-    } catch (err) {
+    } catch {
       setError("Erro ao conectar com o servidor.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleForgotSubmit = async (e) => {
+    e.preventDefault();
+    setForgotMsg("");
+    setForgotLoading(true);
+    try {
+      const apiBase = import.meta.env.VITE_API_URL || "/api";
+      const response = await fetch(`${apiBase}/forgot-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: forgotEmail }),
+      });
+      const data = await response.json();
+      if (data.success) {
+        setForgotMsg("Se o e-mail existir, você receberá um link de recuperação.");
+      } else {
+        setForgotMsg("Ocorreu um erro, tente novamente.");
+      }
+    } catch {
+      setForgotMsg("Erro ao conectar com o servidor.");
+    } finally {
+      setForgotLoading(false);
     }
   };
 
@@ -291,7 +321,45 @@ export default function LoginVoolt({ onLoginSuccess }) {
             <button type="submit" disabled={loading}>
               {loading ? "Entrando..." : "Entrar"}
             </button>
+
+            <button 
+              type="button" 
+              onClick={() => { setShowForgot(true); setForgotMsg(""); }}
+              style={{ background: "transparent", color: "#3b82f6", marginTop: "1rem", fontSize: "0.875rem", boxShadow: "none", width: "auto", margin: "1rem auto 0" }}
+            >
+              Esqueci minha senha
+            </button>
           </form>
+
+          {showForgot && (
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(15,23,42,0.9)", display: "flex", flexDirection: "column", justifyContent: "center", padding: "2rem", borderRadius: "24px" }}>
+              <h3 style={{ color: "#fff", marginBottom: "1rem" }}>Recuperar Senha</h3>
+              <p style={{ color: "#94a3b8", fontSize: "0.875rem", marginBottom: "1.5rem" }}>Digite seu e-mail para receber o link de recuperação.</p>
+              
+              {forgotMsg && <div style={{ color: "#10b981", fontSize: "0.875rem", marginBottom: "1rem" }}>{forgotMsg}</div>}
+              
+              <form onSubmit={handleForgotSubmit}>
+                <input 
+                  type="email" 
+                  placeholder="Seu e-mail cadastrado" 
+                  value={forgotEmail}
+                  onChange={(e) => setForgotEmail(e.target.value)}
+                  required
+                  style={{ marginBottom: "1rem" }}
+                />
+                <button type="submit" disabled={forgotLoading}>
+                  {forgotLoading ? "Enviando..." : "Enviar link"}
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => setShowForgot(false)}
+                  style={{ background: "transparent", border: "1px solid #334155", marginTop: "0.5rem" }}
+                >
+                  Voltar
+                </button>
+              </form>
+            </div>
+          )}
         </section>
       </main>
     </div>

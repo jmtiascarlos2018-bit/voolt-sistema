@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getCursos, deleteCurso, saveCurso } from '../api'
 
@@ -20,17 +20,22 @@ export default function Cursos() {
   const [search, setSearch] = useState('')
   const [filterCat, setFilterCat] = useState('Todos')
 
-  const load = () => {
+  const load = useCallback(() => {
     setLoading(true)
     getCursos().then(setCursos).catch(console.error).finally(() => setLoading(false))
-  }
+  }, [])
 
-  useEffect(() => { load() }, [])
+  useEffect(() => { queueMicrotask(load) }, [load])
 
   const handleDelete = async (id, nome) => {
     if (!confirm(`Deseja remover o curso "${nome}"?`)) return
-    await deleteCurso(id)
-    load()
+    try {
+      await deleteCurso(id)
+      load()
+    } catch (e) {
+      alert('Erro ao deletar curso: ' + e.message)
+      console.error(e)
+    }
   }
 
   const handleToggleAtivo = async (curso) => {
@@ -214,11 +219,11 @@ function CursoCard({ curso, onEdit, onDelete, onToggle }) {
 
         {/* Ações */}
         <div className="flex gap-2 pt-3 border-t border-slate-100">
-          <button onClick={onEdit}
+          <button onClick={(e) => { e.stopPropagation(); onEdit(); }}
             className="flex-1 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors">
             ✏️ Editar
           </button>
-          <button onClick={onToggle}
+          <button onClick={(e) => { e.stopPropagation(); onToggle(); }}
             className={`py-2 px-3 rounded-lg text-xs font-bold transition-colors border ${
               curso.ativo
                 ? 'border-amber-200 bg-amber-50 text-amber-600 hover:bg-amber-100'
@@ -228,7 +233,7 @@ function CursoCard({ curso, onEdit, onDelete, onToggle }) {
           >
             {curso.ativo ? '⏸' : '▶'}
           </button>
-          <button onClick={onDelete}
+          <button onClick={(e) => { e.stopPropagation(); onDelete(); }}
             className="py-2 px-3 rounded-lg bg-red-50 hover:bg-red-100 text-red-500 text-xs font-bold transition-colors border border-red-100"
             title="Excluir">
             🗑️

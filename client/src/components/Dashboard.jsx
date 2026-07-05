@@ -15,19 +15,40 @@ export default function Dashboard() {
       .finally(() => setLoading(false))
   }, [])
 
-  const totalRecebido = alunos.reduce((s, a) => s + (a.entrada || 0), 0)
-  const parcelasAbertas = alunos.reduce((s, a) => {
-    const p = a.parcelas || []
-    return s + p.filter(x => x.status !== 'PAGO').length
+  const currentMonth = new Date().toISOString().slice(0, 7) // YYYY-MM (ex: "2026-07")
+
+  const alunosAtivos = alunos.filter(a => a.status === 'Ativo').length
+  const empresasAtivas = empresas.filter(e => e.statusPlano === 'ATIVO').length
+
+  // Recebido no mês atual de alunos (entradas no mês atual + parcelas pagas no mês atual)
+  const recebidoAlunos = alunos.reduce((s, a) => {
+    const entradaNoMes = (a.dataInicio && a.dataInicio.startsWith(currentMonth)) ? (a.entrada || 0) : 0
+    const pPagas = (a.parcelas || []).filter(p => (p.pago || p.status === 'PAGO') && p.dataPagamento && p.dataPagamento.startsWith(currentMonth))
+    const totalPPagas = pPagas.reduce((acc, p) => acc + (p.valor || 0), 0)
+    return s + entradaNoMes + totalPPagas
   }, 0)
 
-  const fmtBRL = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+  // Recebido no mês atual de empresas (parcelas de contrato pagas no mês atual)
+  const recebidoEmpresas = empresas.reduce((s, e) => {
+    const pPagas = (e.parcelasContrato || []).filter(p => p.status === 'PAGO' && p.dataPagamento && p.dataPagamento.startsWith(currentMonth))
+    const totalPPagas = pPagas.reduce((acc, p) => acc + (p.valor || 0), 0)
+    return s + totalPPagas
+  }, 0)
+
+  const totalRecebido = recebidoAlunos + recebidoEmpresas
+
+  const parcelasAbertas = alunos.reduce((s, a) => {
+    const p = a.parcelas || []
+    return s + p.filter(x => !x.pago && x.status !== 'PAGO').length
+  }, 0)
+
+  const fmtBRL = v => Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 
   const stats = [
-    { label: 'Alunos Matriculados', value: alunos.length, sub: 'Ativos', color: 'blue', icon: <UsersIcon />, onClick: () => navigate('/alunos') },
+    { label: 'Alunos Matriculados', value: alunosAtivos, sub: 'Ativos', color: 'blue', icon: <UsersIcon />, onClick: () => navigate('/alunos') },
     { label: 'Recebido (mês)', value: fmtBRL(totalRecebido), sub: 'Financeiro', color: 'emerald', icon: <MoneyIcon />, onClick: () => navigate('/relatorios') },
     { label: 'Parcelas em aberto', value: parcelasAbertas, sub: 'Alunos', color: 'amber', icon: <DocIcon /> },
-    { label: 'Empresas ativas', value: empresas.length, sub: 'Tráfego pago', color: 'violet', icon: <BuildingIcon />, onClick: () => navigate('/empresas') },
+    { label: 'Empresas ativas', value: empresasAtivas, sub: 'Tráfego pago', color: 'violet', icon: <BuildingIcon />, onClick: () => navigate('/empresas') },
   ]
 
   if (loading) return <LoadingState />

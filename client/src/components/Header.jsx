@@ -10,6 +10,8 @@ const titles = {
   '/cursos/novo': ['Novo Curso', 'Cadastro de curso'],
   '/planos': ['Planos', 'Planos de tráfego disponíveis'],
   '/relatorios': ['Relatórios', 'Análise e fluxo de caixa'],
+  '/financeiro': ['Financeiro', 'Resumo financeiro e despesas'],
+  '/contas-a-pagar': ['Contas a Pagar', 'Controle de despesas e vencimentos'],
 }
 
 export default function Header() {

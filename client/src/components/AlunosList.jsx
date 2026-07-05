@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getAlunos, deleteAluno } from '../api'
 
@@ -8,12 +8,12 @@ export default function AlunosList() {
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
-  const load = () => {
+  const load = useCallback(() => {
     setLoading(true)
     getAlunos().then(setAlunos).catch(console.error).finally(() => setLoading(false))
-  }
+  }, [])
 
-  useEffect(() => { load() }, [])
+  useEffect(() => { queueMicrotask(load) }, [load])
 
   const filtered = alunos.filter(a =>
     [a.nome, a.cpf, a.cursoNome || a.curso].join(' ').toLowerCase().includes(search.toLowerCase())

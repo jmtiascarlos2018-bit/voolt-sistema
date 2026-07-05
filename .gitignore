@@ -1,5 +1,19 @@
-node_modules/ 
-client/node_modules/ 
-uploads/ 
-.env 
-client/.env 
+node_modules/
+client/node_modules/
+
+# Environment files / secrets
+.env
+.env.*
+client/.env
+client/.env.*
+
+# Local persistence
+uploads/
+database.sqlite
+*.sqlite
+*.sqlite3
+*.db
+
+# Local fiscal documents
+*.xml
+*.XML

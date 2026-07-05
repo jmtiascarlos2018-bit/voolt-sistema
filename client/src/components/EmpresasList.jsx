@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getEmpresas, deleteEmpresa } from '../api'
 
@@ -8,11 +8,11 @@ export default function EmpresasList() {
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
-  const load = () => {
+  const load = useCallback(() => {
     setLoading(true)
     getEmpresas().then(setEmpresas).catch(console.error).finally(() => setLoading(false))
-  }
-  useEffect(() => { load() }, [])
+  }, [])
+  useEffect(() => { queueMicrotask(load) }, [load])
 
   const filtered = empresas.filter(e =>
     [e.nomeFantasia, e.cnpj, e.planoNome || e.plano].join(' ').toLowerCase().includes(search.toLowerCase())

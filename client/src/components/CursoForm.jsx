@@ -5,13 +5,12 @@ import { getCursos, saveCurso } from '../api'
 const CATEGORIAS = ['Tecnologia', 'Design', 'Marketing', 'Gestão', 'Idiomas', 'Outro']
 const NIVEIS     = ['Básico', 'Intermediário', 'Avançado']
 const MODALIDADES = ['Presencial', 'Online', 'Híbrido']
-const PROFESSORES = ['João Silva', 'Maria Souza', 'Pedro Santos']
 
 const EMPTY = {
   nome: '', categoria: 'Tecnologia', descricao: '', cargaHoraria: 40,
   duracao: '', modalidade: 'Presencial', nivel: 'Básico',
   valor: 0, desconto: 0, ativo: true, vagas: 20,
-  professor: PROFESSORES[0], requisitos: '', objetivos: '', certificado: true,
+  professor: '', requisitos: '', objetivos: '', certificado: true,
 }
 
 const fmtBRL = v => Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
@@ -30,11 +29,13 @@ export default function CursoForm() {
   // Carregar curso existente
   useEffect(() => {
     if (!isEdit) return
-    getCursos().then(list => {
-      const c = list.find(x => x.id === id)
-      if (c) setForm({ ...EMPTY, ...c })
+    queueMicrotask(() => {
+      getCursos().then(list => {
+        const c = list.find(x => x.id === id)
+        if (c) setForm({ ...EMPTY, ...c })
+      })
     })
-  }, [id])
+  }, [id, isEdit])
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
 
@@ -191,9 +192,13 @@ export default function CursoForm() {
             {/* Professor */}
             <div className="col-span-4">
               <label className="form-label">Professor / Instrutor</label>
-              <select className="form-select" value={form.professor} onChange={e => set('professor', e.target.value)}>
-                {PROFESSORES.map(p => <option key={p}>{p}</option>)}
-              </select>
+              <input
+                type="text"
+                className="form-input"
+                value={form.professor || ''}
+                onChange={e => set('professor', e.target.value)}
+                placeholder="Nome do professor / instrutor"
+              />
             </div>
 
             {/* Status / Certificado */}

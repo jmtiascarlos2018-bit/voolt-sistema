@@ -4,9 +4,8 @@ import { getAlunos, saveAluno, getCursos, uploadDocumento, getDocumentos, delete
 
 import Modal from './ui/Modal'
 
-const CURSOS_FALLBACK = ['INFORMÁTICA BÁSICA', 'SOCIAL MEDIA', 'DESIGN GRÁFICO PROFISSIONAL', 'ANÁLISE DE DADOS']
 const TURMAS = ['TURMA MANHÃ', 'TURMA TARDE', 'TURMA NOITE']
-const PROFESSORES = ['João Silva', 'Maria Souza', 'Pedro Santos']
+
 const DIAS = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom']
 
 function uid() { return 'aluno-' + Date.now() }
@@ -17,7 +16,6 @@ export default function AlunoForm() {
   const isEdit = !!id
 
   const [saving, setSaving] = useState(false)
-  const [activeTab] = useState('dados')
   const [cursosList, setCursosList] = useState([])
   const [allCursos, setAllCursos] = useState([])
   const [loadingCursos, setLoadingCursos] = useState(true)
@@ -27,10 +25,8 @@ export default function AlunoForm() {
 
   // Modais
   const [modal, setModal] = useState(null) // 'contrato' | 'pagamento' | 'certificado' | 'parcela'
-  const [parcelaSelecionada, setParcelaSelecionada] = useState(null)
   const [parcelasState, setParcelasState] = useState([])
   const [pagtoForm, setPagtoForm] = useState({ parcela: '', dataPagamento: '', formaPagamento: 'Pix', observacao: '' })
-  const [certConfirm, setCertConfirm] = useState(false)
   const [toast, setToast] = useState(null)
 
   const [form, setForm] = useState({
@@ -39,7 +35,7 @@ export default function AlunoForm() {
     cep: '', endereco: '', numero: '', complemento: '', bairro: '', cidade: '', estado: '',
     curso: '', turma: TURMAS[0], dataInicio: '', dataTermino: '',
     diasSemana: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex'],
-    horarioInicio: '08:00', horarioFim: '10:00', professor: PROFESSORES[0],
+    horarioInicio: '08:00', horarioFim: '10:00', professor: '',
     modalidade: 'Presencial', cargaHoraria: 80, status: 'Ativo', observacoes: '',
     valorTotal: 500, desconto: 0, entrada: 100, formaPagamento: 'Parcelado',
     qtdeParcelas: 4, diaVencimento: 'Todo dia 10', primeiroVencimento: '',
@@ -47,25 +43,32 @@ export default function AlunoForm() {
     documentos: [],
   })
 
+  const showToast = (msg, type = 'success') => {
+    setToast({ msg, type })
+    setTimeout(() => setToast(null), 3500)
+  }
+
   // Carregar cursos reais do sistema
   useEffect(() => {
-    setLoadingCursos(true)
-    getCursos()
-      .then(list => {
-        setAllCursos(list)
-        const ativos = list.filter(c => c.ativo)
-        setCursosList(ativos)
-        // Se for cadastro novo, seleciona por padrão o primeiro curso ativo se existir
-        if (!isEdit && ativos.length > 0) {
-          setForm(f => ({ ...f, curso: ativos[0].id }))
-        }
-        setLoadingCursos(false)
-      })
-      .catch((err) => {
-        console.error(err)
-        setCursosError('Erro ao carregar os cursos do sistema.')
-        setLoadingCursos(false)
-      })
+    queueMicrotask(() => {
+      setLoadingCursos(true)
+      getCursos()
+        .then(list => {
+          setAllCursos(list)
+          const ativos = list.filter(c => c.ativo)
+          setCursosList(ativos)
+          // Se for cadastro novo, seleciona por padrão o primeiro curso ativo se existir
+          if (!isEdit && ativos.length > 0) {
+            setForm(f => ({ ...f, curso: ativos[0].id }))
+          }
+          setLoadingCursos(false)
+        })
+        .catch((err) => {
+          console.error(err)
+          setCursosError('Erro ao carregar os cursos do sistema.')
+          setLoadingCursos(false)
+        })
+    })
   }, [isEdit])
 
   // Normalizar curso de nome para ID caso seja registro antigo (legado)
@@ -75,7 +78,7 @@ export default function AlunoForm() {
       if (!foundById) {
         const foundByName = cursosList.find(c => c.nome.toLowerCase() === form.curso.toLowerCase())
         if (foundByName) {
-          setForm(f => ({ ...f, curso: foundByName.id }))
+          queueMicrotask(() => setForm(f => ({ ...f, curso: foundByName.id })))
         }
       }
     }
@@ -98,7 +101,7 @@ export default function AlunoForm() {
         if (a.parcelas) setParcelasState(a.parcelas)
       }
     })
-  }, [id])
+  }, [id, isEdit])
 
   // Carregar documentos reais salvos do aluno
   useEffect(() => {
@@ -130,11 +133,6 @@ export default function AlunoForm() {
 
   const fmtBRL = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
   const fmtDate = d => d ? new Date(d + 'T12:00:00').toLocaleDateString('pt-BR') : '-'
-
-  const showToast = (msg, type = 'success') => {
-    setToast({ msg, type })
-    setTimeout(() => setToast(null), 3500)
-  }
 
   // ─── Gerar lista de parcelas ────────────────────────────────────────────────
   const generateParcelas = () => {
@@ -478,7 +476,9 @@ export default function AlunoForm() {
       if (!d.erro) {
         setForm(f => ({ ...f, endereco: d.logradouro, bairro: d.bairro, cidade: d.localidade, estado: d.uf }))
       }
-    } catch {}
+    } catch (err) {
+      console.error('Erro ao buscar CEP:', err)
+    }
   }
 
   // Calcular total pago nas parcelas
@@ -677,9 +677,12 @@ export default function AlunoForm() {
             </div>
             <div className="col-span-2">
               <label className="form-label">Professor / Instrutor</label>
-              <select className="form-select" value={form.professor} onChange={e => set('professor', e.target.value)}>
-                {PROFESSORES.map(p => <option key={p}>{p}</option>)}
-              </select>
+              <input
+                className="form-input"
+                value={form.professor}
+                onChange={e => set('professor', e.target.value)}
+                placeholder="Nome do professor / instrutor"
+              />
             </div>
             <div className="col-span-2">
               <label className="form-label">Modalidade</label>
