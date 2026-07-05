@@ -3,7 +3,7 @@ import { deleteContaPagar, getContasPagar, marcarContaPaga, saveContaPagar } fro
 
 const EMPTY_FORM = {
   descricao: '',
-  categoria: 'Operacional',
+  categoria: '',
   valor: '',
   data_vencimento: '',
   data_pagamento: '',
@@ -15,7 +15,6 @@ const EMPTY_FORM = {
 }
 
 const STATUS = ['Todos', 'pendente', 'pago', 'vencido', 'cancelado']
-const CATEGORIAS = ['Operacional', 'Marketing', 'Fornecedor', 'Impostos', 'Equipe', 'Ferramentas', 'Outros']
 const RECORRENCIAS = ['Única', 'Mensal', 'Trimestral', 'Semestral', 'Anual']
 const PRIORIDADES = ['Baixa', 'Média', 'Alta', 'Urgente']
 
@@ -190,9 +189,7 @@ export default function ContasPagar() {
               </div>
               <div className="col-span-12 md:col-span-3">
                 <label className="form-label">Categoria</label>
-                <select className="form-select" value={form.categoria} onChange={e => setForm({ ...form, categoria: e.target.value })}>
-                  {CATEGORIAS.map(item => <option key={item}>{item}</option>)}
-                </select>
+                <input type="text" className="form-input" value={form.categoria} onChange={e => setForm({ ...form, categoria: e.target.value })} placeholder="Digite a categoria..." />
               </div>
               <div className="col-span-12 md:col-span-3">
                 <label className="form-label">Valor *</label>
